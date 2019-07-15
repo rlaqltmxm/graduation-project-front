@@ -1,0 +1,115 @@
+import React, { Component } from "react";
+import { Form, Button, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+
+export default class ConnectTest extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            url: localStorage.getItem('connURL'),
+            active: false
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        });
+    };
+
+    getQuiz = () => {
+        this.setState({ active: !this.state.active })
+    }
+
+    render(){
+        return(
+            
+            <div style={{marginTop: 150}}>
+                <h2>Phase1. Connect your device to '{this.state.url}'</h2>
+                <h4 style={{padding: 10}}>
+                    **Message payload should contain: <br/>
+                    DeviceID (1), State, and Mode (push/pull)
+                </h4>
+                <Button
+                    variant="outline-success"
+                    color="success"
+                    size="small"
+                    onClick={
+                        this.getQuiz
+                    }>GO TEST
+                </Button>
+                {this.state.active && <Quiz1></Quiz1>}
+            </div>
+
+        )
+    }
+
+}
+
+class Quiz1 extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            try: "",
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value,
+        });
+    };
+
+    handleSubmit = () => {
+
+        localStorage.setItem("submit1", this.state.try)
+        console.log(this.state.try)
+
+        axios.get(localStorage.getItem('serverURL')+'/obs')
+        .then( 
+            response => { 
+                // console.log(response.data)
+                localStorage.setItem("obsURL", response.data.url)
+                this.nextPath('/coapClient/observer')
+                //console.log(localStorage.getItem('obsURL'))
+            } 
+            
+        )
+        .catch( response => { console.log(response) } );
+
+        // this.nextPath('/observer')
+    }
+
+    nextPath = (path) => {
+        window.location = path
+    }
+
+    render(){
+        return(
+            <div style={{padding:10, marginTop: 30, paddingRight: 150, paddingLeft: 150}}>
+                <h3>Q1. What response did you get?</h3>
+                <Form>
+                    <Form.Group>
+                    <div style={{paddingRight: 100, paddingLeft: 100, textAlign: 'left'}}>
+                        <Form.Label for="try">Answer: </Form.Label>
+                        <Form.Control 
+                            type="try" 
+                            name="try" 
+                            id="exampleEmail" 
+                            placeholder="your answer"
+                            onChange={this.handleChange}></Form.Control></div>
+                    </Form.Group>
+                    <Button
+                        variant="outline-success"
+                        color="success"
+                        size="small"
+                        onClick={this.handleSubmit}>Submit</Button>
+                </Form>
+            </div>
+        )
+    }
+
+}

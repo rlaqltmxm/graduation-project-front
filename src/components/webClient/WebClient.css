@@ -1,0 +1,16 @@
+.container {
+    display: 'flex';
+    flexWrap: 'wrap';
+}
+
+.textField {
+    width: 100;
+}
+
+.dense {
+    marginTop: 19;
+}
+
+.menu {
+    width: 200;
+}
