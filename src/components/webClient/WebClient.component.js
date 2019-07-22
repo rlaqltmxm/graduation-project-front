@@ -17,8 +17,7 @@ export default class WebClient extends Component {
             sno: '',
             sip: '',
             sport: '',
-            testingURL: '',
-            serverURL: localStorage.getItem('serverURL') + '/webClient'
+            testingURL: ''
         }
         this.handleChange = this.handleChange.bind(this)
         this.sendInfo = this.sendInfo.bind(this)
@@ -36,17 +35,16 @@ export default class WebClient extends Component {
 
     sendInfo = () => {
 
-        localStorage.setItem('accessInfo', this.state)
+        sessionStorage.setItem('accessInfo', this.state)
 
         axios.get(localStorage.getItem('serverURL')+'/http_get')
         .then( 
             (response) => { 
 
                 console.log(response.data)
-                localStorage.setItem('getURL', response.data.url)
-                this.nextPath('/webClient/test_1')
+                sessionStorage.setItem('webClientURL', response.data.url)
+                this.nextPath('/webClient/test')
             } 
-            
         )
         .catch( response => { console.log(response) } );
         

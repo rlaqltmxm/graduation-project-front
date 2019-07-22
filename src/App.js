@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
-import { Grid, Card, CardContent, CardActions, Typography, Button, Paper, withStyles } from '@material-ui/core';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import WebMain from './components/WebMain.component';
@@ -31,7 +29,7 @@ class App extends Component {
   constructor(props){
     super(props);
 
-    localStorage.setItem('serverURL', 'http://192.168.0.5:8080')
+    localStorage.setItem('serverURL', 'http://192.168.0.17:8080')
 
     this.state = {
       answer : ""
@@ -61,8 +59,7 @@ class App extends Component {
         <Route path="/webMain" component={WebMain} />
         <Route path="/webServer" component={WebServer} />
         <Route path="/webClient" exact component={WebClient} />
-        <Route path="/webClient/test_1" component={ClientTest} />
-        <Route path="/webClient/test_2" component={ClientTest2} />
+        <Route path="/webClient/test" component={ClientTest} />
         <Route path="/webClient/result" component={WebClientResult} />
         <Route path="/coapMain" component={CoapMain} />
         <Route path="/unitTest" exact component={UnitUserInfo} />
