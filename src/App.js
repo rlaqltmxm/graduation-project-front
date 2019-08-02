@@ -42,7 +42,7 @@ class App extends Component {
   //     .then(res => {
   //       this.setState({ answer : res.data })
   //       console.log(res)
-        
+
   //     }).catch(function(err){
   //       console.log(err);
   //     })
@@ -59,7 +59,8 @@ class App extends Component {
         <Route path="/webMain" component={WebMain} />
         <Route path="/webServer" component={WebServer} />
         <Route path="/webClient" exact component={WebClient} />
-        <Route path="/webClient/test" component={ClientTest} />
+        <Route path="/webClient/get" component={ClientTest} />
+        <Route path="/webClient/post" component={ClientTest2} />
         <Route path="/webClient/result" component={WebClientResult} />
         <Route path="/coapMain" component={CoapMain} />
         <Route path="/unitTest" exact component={UnitUserInfo} />
