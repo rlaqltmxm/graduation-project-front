@@ -7,7 +7,7 @@ export default class ClientTest extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: localStorage.getItem('getURL'),
+            testingURL: sessionStorage.getItem('getURL'),
             active: false
         }
     }
@@ -60,18 +60,7 @@ class Quiz1 extends Component {
 
     handleSubmit = () => {
 
-        localStorage.setItem('getSubmit', this.state.try);
-
-        axios.get(localStorage.getItem('serverURL') + '/http_post')
-        .then( 
-            (response) => { 
-                console.log(response.data)
-                localStorage.setItem("postURL", response.data.url);
-                this.nextPath('/webClient/test_2')
-            } 
-            
-        )
-        .catch( (response) => { console.log(response) } );
+        sessionStorage.setItem('getSubmit', this.state.try);
         this.nextPath('/webClient/test_2')
     }
 
@@ -92,7 +81,7 @@ class Quiz1 extends Component {
                             name="try" 
                             id="exampleEmail" 
                             placeholder="your answer"
-                            onChange={this.handleChange}></Form.Control></div>
+                            onChange={this.handleChange.bind(this)}></Form.Control></div>
                     </Form.Group>
                     <Button
                         variant="outline-success"

@@ -7,8 +7,8 @@ export default class Result extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: localStorage.getItem("getSubmit") == localStorage.getItem('getAnswer') ? 50 : 0,
-            score2: localStorage.getItem("postSubmit") == localStorage.getItem('postAnswer') ? 50 : 0,
+            score1: sessionStorage.getItem("getSubmit") == sessionStorage.getItem('getAnswer') ? 50 : 0,
+            score2: sessionStorage.getItem("postSubmit") == sessionStorage.getItem('postAnswer') ? 50 : 0,
             str1: "\"GET Success\"",
             str2: "\"GET Failed\"",
             str3: "\"POST Success\"",
@@ -26,10 +26,10 @@ export default class Result extends Component {
 
     sendResult = () => {
         var temp = {
-            sname: localStorage.getItem('sname'),
-            sno: localStorage.getItem('sno'),
-            sip: localStorage.getItem('sip'),
-            sport: localStorage.getItem('sport')
+            sname: sessionStorage.getItem('sname'),
+            sno: sessionStorage.getItem('sno'),
+            sip: sessionStorage.getItem('sip'),
+            sport: sessionStorage.getItem('sport')
         }
 
         axios.post(localStorage.getItem('serverURL')+'/http_submit', temp)

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import { Router, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
-
-import './WebClient.css';
-
 
 export default class WebClient extends Component {
 
@@ -21,8 +16,7 @@ export default class WebClient extends Component {
             serverURL: localStorage.getItem('serverURL') + '/webClient'
         }
         this.handleChange = this.handleChange.bind(this)
-        this.sendInfo = this.sendInfo.bind(this)
-    }
+    } 
 
     nextPath = (path) => {
         this.props.history.push(path)
@@ -34,16 +28,16 @@ export default class WebClient extends Component {
         });
     };
 
-    sendInfo = () => {
+    goSenario = () => {
 
-        localStorage.setItem('accessInfo', this.state)
+        sessionStorage.setItem('accessInfo', this.state)
 
-        axios.get(localStorage.getItem('serverURL')+'/http_get')
+        axios.get(sessionStorage.getItem('serverURL')+'/http_scenario')
         .then( 
             (response) => { 
 
                 console.log(response.data)
-                localStorage.setItem('getURL', response.data.url)
+                sessionStorage.setItem('getURL', response.data.url)
                 this.nextPath('/webClient/test_1')
             } 
             
@@ -51,6 +45,29 @@ export default class WebClient extends Component {
         .catch( response => { console.log(response) } );
         
     }
+
+    goUnit = () => {
+
+        sessionStorage.setItem('accessInfo', this.state)
+
+        axios.get(localStorage.getItem('serverURL')+'/http_get')
+        .then( 
+            (response) => { 
+
+                sessionStorage.setItem('getURL', response.data.url)
+                axios.get(localStorage.getItem('serverURL')+'/http_post')
+                .then(
+                    (res) => {
+                        sessionStorage.setItem('postURL', res.data.url);
+                        this.nextPath('/webClient/unit');
+                    }
+                ).catch(err => console.log(err));
+            }    
+        )
+        .catch(err => console.log(err));
+        
+    }
+
 
     render(){
 
@@ -105,16 +122,26 @@ export default class WebClient extends Component {
                         </Form>
                     
                 </div>
-                <div>
+                <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button
+                        style={{marginRight: 50, width: 150}}
                         variant="outline-success"
                         color="success"
                         size="small"
                         onClick={
-                            this.sendInfo
+                            this.goSenario.bind(this)
                         }
-                        >Submit</Button>
-                    </div>
+                        >Go Scenario Test</Button>
+                    <Button
+                        style={{width: 150}}
+                        variant="outline-info"
+                        color="success"
+                        size="small"
+                        onClick={
+                            this.goUnit.bind(this)
+                        }
+                        >Go Unit Test</Button>
+                </div>
             </div>
 
         )

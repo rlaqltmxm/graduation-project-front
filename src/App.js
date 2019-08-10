@@ -14,6 +14,8 @@ import WebClient from './components/webClient/WebClient.component';
 import ClientTest from './components/webClient/ClientTest.component';
 import ClientTest2 from './components/webClient/ClientTest2.component';
 import WebClientResult from './components/webClient/WebClientResult.component';
+import ClientUnit from './components/webClient/ClientUnit.component';
+import ClientUnitResult from './components/webClient/ClientUnitResult.component';
 
 import CoapMain from './components/CoapMain.component';
 
@@ -64,6 +66,8 @@ class App extends Component {
         <Route path="/webClient/test_1" component={ClientTest} />
         <Route path="/webClient/test_2" component={ClientTest2} />
         <Route path="/webClient/result" component={WebClientResult} />
+        <Route path="/webClient/unit" component={ClientUnit}/>
+        <Route path="/webClient/unitResult" component={ClientUnitResult}/>
         <Route path="/coapMain" component={CoapMain} />
         <Route path="/unitTest" exact component={UnitUserInfo} />
         <Route path="/unitTest/unitPhase" component={UnitPhase} />

@@ -7,16 +7,10 @@ export default class ClientTest2 extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: localStorage.getItem('postURL'),
+            testingURL: sessionStorage.getItem('postURL'),
             active: false
         }
     }
-
-    handleChange = (event) => {
-        this.setState({
-          [event.target.name]: event.target.value,
-        });
-    };
 
     getQuiz = () => {
         this.setState({ active: !this.state.active })
@@ -27,15 +21,12 @@ export default class ClientTest2 extends Component {
             <div style={{marginTop:200}}>
                 <h2>Step3. Send POST request to '{this.state.testingURL}'</h2>
                 <div style={{marginTop: 20}}>
-                <Button
-                    variant="outline-success"
-                    color="success"
-                    size="small"
-                    onClick={
-                        this.getQuiz
-                    }>GO TEST
-                </Button>
-                {this.state.active && <Quiz2></Quiz2>}
+                    <Button
+                        variant="outline-success"
+                        color="success"
+                        size="small"
+                        onClick={this.getQuiz.bind(this)}>GO TEST</Button>
+                    {this.state.active && <Quiz2></Quiz2>}
                 </div>
             </div>
         )
@@ -60,13 +51,13 @@ class Quiz2 extends Component {
 
     handleSubmit = () => {
 
-        localStorage.setItem('postSubmit', this.state.try);
+        sessionStorage.setItem('postSubmit', this.state.try);
 
         axios.get(localStorage.getItem('serverURL')+'/http_result')
         .then((response) => {
             console.log(response);
-            localStorage.setItem('getAnswer', response.data.getAnswer);
-            localStorage.setItem('postAnswer', response.data.postAnswer);
+            sessionStorage.setItem('getAnswer', response.data.getAnswer);
+            sessionStorage.setItem('postAnswer', response.data.postAnswer);
         })
         .catch((response) => {
             console.log(response);
