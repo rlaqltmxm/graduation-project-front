@@ -7,30 +7,26 @@ export default class Result extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: sessionStorage.getItem("getSubmit") == sessionStorage.getItem('getAnswer') ? 50 : 0,
-            score2: sessionStorage.getItem("postSubmit") == sessionStorage.getItem('postAnswer') ? 50 : 0,
-            str1: "\"GET Success\"",
-            str2: "\"GET Failed\"",
-            str3: "\"POST Success\"",
-            str4: "\"POST Failed\""
+            score1: sessionStorage.getItem("getSubmit") === sessionStorage.getItem('getAnswer') ? "\"Correct\"" : "\"Wrong\"",
+            score2: sessionStorage.getItem("postSubmit") == sessionStorage.getItem('postAnswer') ? "\"Correct\"" : "\"Wrong\"",
+            score3: true,
+            score4: true,
+            score5: true
         }
     }
 
-    nextPath = (path) => {
+    nextPath(path) {
         window.location = path
     }
 
-    messages = (target) => {
+    messages(target) {
         return target == 0
     }
 
-    sendResult = () => {
-        var temp = {
-            sname: sessionStorage.getItem('sname'),
-            sno: sessionStorage.getItem('sno'),
-            sip: sessionStorage.getItem('sip'),
-            sport: sessionStorage.getItem('sport')
-        }
+    sendResult() {
+        var temp = sessionStorage.getItem("userInfo");
+
+        // need score1, score2
 
         axios.post(localStorage.getItem('serverURL')+'/http_submit', temp)
         .then(
@@ -38,67 +34,78 @@ export default class Result extends Component {
         ).catch( response => { console.log(response) } );
     }
 
+    colorize(target) {
+        if(target ==="\"Correct\"") return "blue"
+        else if(target === "\"Wrong\"") return "red"
+        else return "black"
+    }
+
+    colorizeBool(target) {
+        if(target) return "blue"
+        else return "red"
+    }
+
     render(){
 
-        const divStyle1 = {
-            color: this.state.score1 == 0 ? "red" : "blue"
-        };
-
-        const divStyle2 = {
-            color: this.state.score2 == 0 ? "red" : "blue"
-        };
-
         return(
-            <div style={{marginTop: 100}}>
+            <div style={{marginTop: 200}}>
                 <h2>Scores</h2>
-                <div style={{marginTop: 50}} >
-                <h4>
-                    Q1:     {this.state.score1}pts <br/>
-                    <h4 style={divStyle1}>
-                        {this.messages(this.state.score1) ? this.state.str2 : this.state.str1}<br/></h4>
-                    <br/>
-                    Q2:     {this.state.score2}pts <br/>
-                    <h4 style={divStyle2}>
-                        {this.messages(this.state.score2) ? this.state.str4 : this.state.str3}</h4>
-                </h4></div>
-                <div style = {{marginTop: 30}}><h3>
-                    Total:  {parseInt(this.state.score1) + parseInt(this.state.score2)}pts
-                </h3></div>
+                <div style={{ paddingTop: 50,
+                                textAlign: "left",
+                                width: 400,
+                                margin: 'auto',}}>
+                    <h4 style={{ color: this.colorize(this.state.score1)}}>
+                        Q1 -GET Answer:     {this.state.score1} <br/>
+                    </h4>
+                    <h4 style={{ color: this.colorize(this.state.score2) }}>
+                        Q2 -POST Answer:     {this.state.score2} <br/>
+                    </h4>
+                    <h4 style={{ color: this.colorizeBool(this.state.score3) }}>
+                        Q3 -HTTP Check:     {this.state.score3.toString()} <br/>
+                    </h4>
+                    <h4 style={{ color: this.colorizeBool(this.state.score4) }}>
+                        Q4 -HTTP Version:     {this.state.score4.toString()} <br/>
+                    </h4>
+                    <h4 style={{ color: this.colorizeBool(this.state.score5) }}>
+                        Q5 -Header User Agent:     {this.state.score5.toString()} <br/>
+                    </h4>
+                </div>
                 <div style={{marginTop: 50, display: 'flex', justifyContent:'center'}}>
-                <Form inline>
-                    <div style={{padding: 10}}>
-                    <Button
-                        variant="outline-success"
-                        color="success"
-                        size="small"
-                        onClick={this.sendResult}
-                        >SUBMIT
-                    </Button></div>
-                    <div style={{padding: 10}}>
-                    <Button
-                        variant="outline-success"
-                        color="success"
-                        size="small"
-                        onClick={
-                            () => {
-                                localStorage.clear()
-                                this.nextPath('/webClient/test_1')
-                            }
-                        }>RETRY
-                    </Button></div>
-                    <div style={{padding: 10}}>
-                    <Button
-                        variant="outline-success"
-                        color="success"
-                        size="small"
-                        onClick={
-                            () => {                                 
-                                localStorage.clear()
-                                this.nextPath('/')
-                            }
-                        }>MAIN PAGE
-                    </Button></div>
-                </Form></div>
+                    <Form inline>
+                        <div style={{padding: 10}}>
+                        <Button
+                            variant="outline-success"
+                            color="success"
+                            size="small"
+                            onClick={this.sendResult}
+                            >SUBMIT
+                        </Button></div>
+                        <div style={{padding: 10}}>
+                        <Button
+                            variant="outline-success"
+                            color="success"
+                            size="small"
+                            onClick={
+                                () => {
+                                    localStorage.clear()
+                                    this.nextPath('/webClient/test_1')
+                                }
+                            }>RETRY
+                        </Button></div>
+                        <div style={{padding: 10}}>
+                        <Button
+                            variant="outline-success"
+                            color="success"
+                            size="small"
+                            onClick={
+                                () => {
+                                    localStorage.clear()
+                                    this.nextPath('/')
+                                }
+                            }>MAIN PAGE
+                        </Button></div>
+                    </Form>
+                </div>
             </div>
         )
     }

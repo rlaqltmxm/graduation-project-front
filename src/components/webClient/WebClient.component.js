@@ -12,17 +12,15 @@ export default class WebClient extends Component {
             sno: '',
             sip: '',
             sport: '',
-            testingURL: '',
-            serverURL: localStorage.getItem('serverURL') + '/webClient'
         }
         this.handleChange = this.handleChange.bind(this)
-    } 
+    }
 
-    nextPath = (path) => {
+    nextPath(path) {
         this.props.history.push(path)
     }
 
-    handleChange = (event) => {
+    handleChange(event) {
         this.setState({
           [event.target.name]: event.target.value,
         });
@@ -37,13 +35,13 @@ export default class WebClient extends Component {
             (response) => { 
 
                 console.log(response.data)
-                sessionStorage.setItem('getURL', response.data.url)
+                sessionStorage.setItem('webClientURL', response.data.url)
                 this.nextPath('/webClient/test_1')
             } 
             
         )
         .catch( response => { console.log(response) } );
-        
+
     }
 
     goUnit = () => {
@@ -81,46 +79,46 @@ export default class WebClient extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Name: </Form.Label>
-                                    <Form.Control 
-                                        type="name" 
-                                        name="sname" 
-                                        id="exampleEmail" 
+                                    <Form.Control
+                                        type="name"
+                                        name="sname"
+                                        id="exampleEmail"
                                         placeholder="type name"
                                         onChange={this.handleChange}></Form.Control></div>
                                 </Form.Group>
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Student ID: </Form.Label>
-                                    <Form.Control 
-                                        type="name" 
-                                        name="sno" 
-                                        id="exampleEmail" 
+                                    <Form.Control
+                                        type="name"
+                                        name="sno"
+                                        id="exampleEmail"
                                         placeholder="type student id"
                                         onChange={this.handleChange}></Form.Control></div>
                                 </Form.Group>
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Your IP: </Form.Label>
-                                    <Form.Control 
-                                        type="name" 
-                                        name="sip" 
-                                        id="exampleEmail" 
+                                    <Form.Control
+                                        type="name"
+                                        name="sip"
+                                        id="exampleEmail"
                                         placeholder="type ip"
                                         onChange={this.handleChange}></Form.Control></div>
                                 </Form.Group>
-                                <Form.Group> 
+                                <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                     <Form.Label for="name">Your Port: </Form.Label>
-                                    <Form.Control 
-                                        type="name" 
-                                        name="sport" 
-                                        id="exampleEmail" 
+                                    <Form.Control
+                                        type="name"
+                                        name="sport"
+                                        id="exampleEmail"
                                         placeholder="type port"
                                         onChange={this.handleChange}></Form.Control></div>
                                 </Form.Group>
                             </Form.Row>
                         </Form>
-                    
+
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button

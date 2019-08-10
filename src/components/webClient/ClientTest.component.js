@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 export default class ClientTest extends Component {
@@ -7,37 +8,43 @@ export default class ClientTest extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: sessionStorage.getItem('getURL'),
+            testingURL: sessionStorage.getItem('webClientURL'),
             active: false
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.getQuiz = this.getQuiz.bind(this);
     }
 
-    handleChange = (event) => {
+    handleChange(event) {
         this.setState({
           [event.target.name]: event.target.value,
         });
     };
 
-    getQuiz = () => {
+    getQuiz() {
         this.setState({ active: !this.state.active })
     }
 
     render(){
         return(
-            <div style={{marginTop:200}}>
-                <h2>Step2. Send GET request to '{this.state.testingURL}'</h2>
-                <div style={{marginTop: 20}}>
+
+            <div style={{marginTop: 150}}>
+                <h2>Step2. Send GET message to URL '{this.state.url}'</h2>
+                <h4 style={{padding: 10, textAlign: "left", marginLeft: 500}}>
+                    You should follow the protocols below: <br/><br/>
+                    <h5 style={{fontStyle: "italic"}}>
+                    *HTTP Version should be "1.1" <br/>
+                    *User-Agent header should be "ComputerNetwork"</h5>
+                </h4>
                 <Button
                     variant="outline-success"
                     color="success"
                     size="small"
-                    onClick={
-                        this.getQuiz
-                    }>GO TEST
+                    onClick={this.getQuiz}>GO TEST
                 </Button>
                 {this.state.active && <Quiz1></Quiz1>}
-                </div>
             </div>
+
         )
     }
 
@@ -50,39 +57,39 @@ class Quiz1 extends Component {
         this.state = {
             try: "",
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange = (event) => {
+    handleChange(event) {
         this.setState({
           [event.target.name]: event.target.value,
         });
     };
 
-    handleSubmit = () => {
+    handleSubmit() {
 
         sessionStorage.setItem('getSubmit', this.state.try);
         this.nextPath('/webClient/test_2')
     }
 
-    nextPath = (path) => {
+    nextPath(path) {
         window.location = path
     }
 
     render(){
         return(
-            <div style={{padding:10, marginTop: 30, marginRight: 300, marginLeft: 300}}>
-                <h3>What message did you GET?</h3>
+            <div style={{padding:10, marginTop: 30, paddingRight: 150, paddingLeft: 150}}>
+                <h3>Q1. What response did you get?</h3>
                 <Form>
-                    <Form.Group>
-                    <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
+                    <div style={{width: 400, margin: 'auto', textAlign: 'left'}}>
                         <Form.Label for="try">Answer: </Form.Label>
-                        <Form.Control 
-                            type="try" 
-                            name="try" 
-                            id="exampleEmail" 
+                        <Form.Control
+                            type="try"
+                            name="try"
+                            id="exampleEmail"
                             placeholder="your answer"
                             onChange={this.handleChange.bind(this)}></Form.Control></div>
-                    </Form.Group>
                     <Button
                         variant="outline-success"
                         color="success"

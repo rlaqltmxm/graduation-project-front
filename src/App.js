@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
-import { Grid, Card, CardContent, CardActions, Typography, Button, Paper, withStyles } from '@material-ui/core';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import WebMain from './components/WebMain.component';
@@ -15,7 +13,6 @@ import ClientTest from './components/webClient/ClientTest.component';
 import ClientTest2 from './components/webClient/ClientTest2.component';
 import WebClientResult from './components/webClient/WebClientResult.component';
 import ClientUnit from './components/webClient/ClientUnit.component';
-import ClientUnitResult from './components/webClient/ClientUnitResult.component';
 
 import CoapMain from './components/CoapMain.component';
 
@@ -33,7 +30,7 @@ class App extends Component {
   constructor(props){
     super(props);
 
-    localStorage.setItem('serverURL', 'http://192.168.0.5:8080')
+    localStorage.setItem('serverURL', 'http://192.168.0.17:8080')
 
     this.state = {
       answer : ""
@@ -46,7 +43,7 @@ class App extends Component {
   //     .then(res => {
   //       this.setState({ answer : res.data })
   //       console.log(res)
-        
+
   //     }).catch(function(err){
   //       console.log(err);
   //     })
@@ -63,11 +60,10 @@ class App extends Component {
         <Route path="/webMain" component={WebMain} />
         <Route path="/webServer" component={WebServer} />
         <Route path="/webClient" exact component={WebClient} />
-        <Route path="/webClient/test_1" component={ClientTest} />
-        <Route path="/webClient/test_2" component={ClientTest2} />
+        <Route path="/webClient/get" component={ClientTest} />
+        <Route path="/webClient/post" component={ClientTest2} />
         <Route path="/webClient/result" component={WebClientResult} />
         <Route path="/webClient/unit" component={ClientUnit}/>
-        <Route path="/webClient/unitResult" component={ClientUnitResult}/>
         <Route path="/coapMain" component={CoapMain} />
         <Route path="/unitTest" exact component={UnitUserInfo} />
         <Route path="/unitTest/unitPhase" component={UnitPhase} />

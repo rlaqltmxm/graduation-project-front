@@ -28,7 +28,7 @@ export default class WebMain extends Component {
                     variant="h4" 
                     component="h2" 
                     style={{textAlign: "left", marginTop: 100, marginBottom: 30, fontStyle: 'italic'}}>
-                    HTTP <span style={details}>:HyperText Transfer Protocol</span>
+                    HTTP <span style={details}>:Hypertext Transfer Protocol</span>
                 </Typography>
                 <Card style={{display: 'flex', padding: 20, margin: 'auto'}}>
                     <div style={{textAlign: "left", paddingLeft: 15}}>
