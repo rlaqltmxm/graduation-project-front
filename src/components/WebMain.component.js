@@ -50,8 +50,8 @@ export default class WebMain extends Component {
                     <div style={{textAlign: "left", paddingLeft: 15}}>
                         <Typography variant="h5" component="h2" style={{fontStyle: 'italic'}}>Web Server</Typography>
                         <Typography style={{width: 350, marginTop: 10}}>
-                            contents<br/>
-                            contents<br/>
+                            Test your HTTP server<br/>
+                            following the manual given.<br/>
                         </Typography>
                     </div>
                     <Button

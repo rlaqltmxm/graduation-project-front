@@ -4,7 +4,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import WebMain from './components/WebMain.component';
-import WebServer from './components/WebServer.component';
 
 import Main from './components/Main.component';
 
@@ -13,6 +12,9 @@ import ClientTest from './components/webClient/ClientTest.component';
 import ClientTest2 from './components/webClient/ClientTest2.component';
 import WebClientResult from './components/webClient/WebClientResult.component';
 import ClientUnit from './components/webClient/ClientUnit.component';
+
+import WebServer from './components/webServer/WebServer.component';
+import WebServerResult from './components/webServer/WebServerResult.component';
 
 import CoapMain from './components/CoapMain.component';
 
@@ -57,14 +59,15 @@ class App extends Component {
       <Router>
       <div className="App" style={{margin: 'auto'}}>
         <Route path="/" exact component={Main} />
-        <Route path="/webMain" component={WebMain} />
-        <Route path="/webServer" component={WebServer} />
+        <Route path="/webMain" exact component={WebMain} />
         <Route path="/webClient" exact component={WebClient} />
         <Route path="/webClient/get" component={ClientTest} />
         <Route path="/webClient/post" component={ClientTest2} />
         <Route path="/webClient/result" component={WebClientResult} />
         <Route path="/webClient/unit" component={ClientUnit}/>
-        <Route path="/coapMain" component={CoapMain} />
+        <Route path="/webServer" exact component={WebServer}/>
+        <Route path="/webServer/result" component={WebServerResult} />
+        <Route path="/coapMain" exact component={CoapMain} />
         <Route path="/unitTest" exact component={UnitUserInfo} />
         <Route path="/unitTest/unitPhase" component={UnitPhase} />
         <Route path="/unitTest/unitResult" component={UnitResult} />
