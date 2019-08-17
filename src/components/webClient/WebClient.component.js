@@ -71,7 +71,7 @@ export default class WebClient extends Component {
 
         return(
 
-            <div style={{marginTop: 200}}>
+            <div style={{marginTop: 150}}>
                 <h2>Step1. Type your profile and WEB Client Information</h2>
                 <div style={{padding: 10, display: 'flex', justifyContent: 'center'}}>
                         <Form>

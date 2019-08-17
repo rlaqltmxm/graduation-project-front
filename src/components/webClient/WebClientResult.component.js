@@ -48,7 +48,7 @@ export default class Result extends Component {
     render(){
 
         return(
-            <div style={{marginTop: 200}}>
+            <div style={{marginTop: 100}}>
                 <h2>Scores</h2>
                 <div style={{ paddingTop: 50,
                                 textAlign: "left",
