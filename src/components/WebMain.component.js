@@ -4,26 +4,18 @@ import { Card, Typography } from '@material-ui/core';
 
 export default class WebMain extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-
-        }
-    }
-
     nextPath = (path) => {
         this.props.history.push(path)
     }
 
     render() {
-        
         const details = {
             fontSize: 20,
             color: '#A9A9A9'
         }
 
         return(
-            <div style={{width: 500, margin: 'auto', }}>
+            <div style={{ width: 500, margin: 'auto' }}>
                 <Typography 
                     variant="h4" 
                     component="h2" 

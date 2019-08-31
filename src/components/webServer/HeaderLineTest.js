@@ -15,20 +15,17 @@ const tableStyle = {
 const tempData = {
     "connTest" : false, 
     "multiThread" : false, 
-    "errorTest200" : false,
-    "errorTest404" : false,
-    "errorTest400" : false, 
     "contentLengthTest" : false, 
     "contentHtmlTest" : false, 
     "contentImageTest" : false,
 }
 
-export default class WebServerResult extends Component {
+export default class HeaderLineTest extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            data: tempData,
         }
     }
 
@@ -63,7 +60,8 @@ export default class WebServerResult extends Component {
         console.log(this.state.data)
         return(
             <div style={{marginTop: 100}}>
-                <h2>Scores</h2>
+                <h2>Web Server Unit Test Result</h2>
+                <h4>    -HTTP Header Lines</h4>
                 <table style={tableStyle}>
                     <tr>
                         <td>Web Server Socket</td>
@@ -75,24 +73,6 @@ export default class WebServerResult extends Component {
                         <td>Handling Multi-thread</td>
                         <td style={this.colorizeBool(data.multiThread)}>
                             {(data.multiThread).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="errorTest200">
-                        <td>Status Code: 200 OK</td>
-                        <td style={this.colorizeBool(data.errorTest200)}>
-                            {(data.errorTest200).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="errorTest404">
-                        <td>Status Code: 404 Not Found</td>
-                        <td style={this.colorizeBool(data.errorTest404)}>
-                            {(data.errorTest404).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="errorTest400">
-                        <td>Status Code: 400 Bad Request</td>
-                        <td style={this.colorizeBool(data.errorTest400)}>
-                            {(data.errorTest400).toString().toUpperCase()}
                         </td>
                     </tr>
                     <tr id="contentLengthTest">

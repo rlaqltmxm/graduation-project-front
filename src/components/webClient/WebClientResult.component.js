@@ -24,7 +24,7 @@ export default class Result extends Component {
     }
 
     sendResult() {
-        var temp = sessionStorage.getItem("userInfo");
+        var temp = JSON.parse(sessionStorage.getItem("userInfo"));
 
         // need score1, score2
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 
 export default class WebClient extends Component {
@@ -26,51 +26,19 @@ export default class WebClient extends Component {
         });
     };
 
-    goSenario = () => {
-
-        sessionStorage.setItem('accessInfo', this.state)
-
-        axios.get(sessionStorage.getItem('serverURL')+'/http_scenario')
-        .then( 
-            (response) => { 
-
+    goSenario() {
+        sessionStorage.setItem('accessInfo', JSON.stringify(this.state))
+        axios.post(localStorage.getItem('serverURL')+'/http_scenario', this.state)
+        .then((response) => { 
                 console.log(response.data)
                 sessionStorage.setItem('webClientURL', response.data.url)
-                this.nextPath('/webClient/test_1')
+                this.nextPath('/webClient/get')
             } 
-            
-        )
-        .catch( response => { console.log(response) } );
-
+        ).catch( response => { console.log(response) } );
     }
-
-    goUnit = () => {
-
-        sessionStorage.setItem('accessInfo', this.state)
-
-        axios.get(localStorage.getItem('serverURL')+'/http_get')
-        .then( 
-            (response) => { 
-
-                sessionStorage.setItem('getURL', response.data.url)
-                axios.get(localStorage.getItem('serverURL')+'/http_post')
-                .then(
-                    (res) => {
-                        sessionStorage.setItem('postURL', res.data.url);
-                        this.nextPath('/webClient/unit');
-                    }
-                ).catch(err => console.log(err));
-            }    
-        )
-        .catch(err => console.log(err));
-        
-    }
-
 
     render(){
-
         return(
-
             <div style={{marginTop: 150}}>
                 <h2>Step1. Type your profile and WEB Client Information</h2>
                 <div style={{padding: 10, display: 'flex', justifyContent: 'center'}}>
@@ -118,7 +86,6 @@ export default class WebClient extends Component {
                                 </Form.Group>
                             </Form.Row>
                         </Form>
-
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button
@@ -126,19 +93,16 @@ export default class WebClient extends Component {
                         variant="outline-success"
                         color="success"
                         size="small"
-                        onClick={
-                            this.goSenario.bind(this)
+                        onClick={() => 
+                            this.goSenario()
                         }
                         >Go Scenario Test</Button>
-                    <Button
-                        style={{width: 150}}
-                        variant="outline-info"
-                        color="success"
-                        size="small"
-                        onClick={
-                            this.goUnit.bind(this)
-                        }
-                        >Go Unit Test</Button>
+                    <DropdownButton variant="outline-info" title="Go Unit Test">
+                        <Dropdown.Item href="/webClient/getUnitTest">GET method Test</Dropdown.Item>
+                        <Dropdown.Item href="/webClient/postUnitTest">POST method Test</Dropdown.Item>
+                        <Dropdown.Item href="/webClient/pustUnitTest">PUT method Test</Dropdown.Item>
+                        <Dropdown.Item href="/webClient/deleteUnitTest">DELETE method Test</Dropdown.Item>
+                    </DropdownButton>   
                 </div>
             </div>
 

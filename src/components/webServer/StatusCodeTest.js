@@ -17,18 +17,15 @@ const tempData = {
     "multiThread" : false, 
     "errorTest200" : false,
     "errorTest404" : false,
-    "errorTest400" : false, 
-    "contentLengthTest" : false, 
-    "contentHtmlTest" : false, 
-    "contentImageTest" : false,
+    "errorTest400" : false,
 }
 
-export default class WebServerResult extends Component {
+export default class StatusCodeTest extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            data: tempData,
         }
     }
 
@@ -41,8 +38,12 @@ export default class WebServerResult extends Component {
                 data: res.data == null ? tempData : 
                 JSON.parse(res.data),
             })        
-        }).catch(err => 
-            console.log(err)
+        }).catch(err => {
+                console.log(err);
+                this.setState({
+                    data: tempData
+                })
+            }
         )
     }
 
@@ -63,7 +64,8 @@ export default class WebServerResult extends Component {
         console.log(this.state.data)
         return(
             <div style={{marginTop: 100}}>
-                <h2>Scores</h2>
+                <h2>Web Server Unit Test Result </h2>
+                <h4> -HTTP Status Codes</h4>
                 <table style={tableStyle}>
                     <tr>
                         <td>Web Server Socket</td>
@@ -93,24 +95,6 @@ export default class WebServerResult extends Component {
                         <td>Status Code: 400 Bad Request</td>
                         <td style={this.colorizeBool(data.errorTest400)}>
                             {(data.errorTest400).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="contentLengthTest">
-                        <td>Content-Length</td>
-                        <td style={this.colorizeBool(data.contentLengthTest)}>
-                            {(data.contentLengthTest).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="contentHtmlTest">
-                        <td>Content-Type: text/html</td>
-                        <td style={this.colorizeBool(data.contentHtmlTest)}>
-                            {(data.contentHtmlTest).toString().toUpperCase()}
-                        </td>
-                    </tr>
-                    <tr id="contentImageTest">
-                        <td>Content-Type: image/jpeg</td>
-                        <td style={this.colorizeBool(data.contentImageTest)}>
-                            {(data.contentImageTest).toString().toUpperCase()}
                         </td>
                     </tr>
                 </table>

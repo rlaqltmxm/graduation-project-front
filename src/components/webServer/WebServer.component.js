@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import { Form, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 
 export default class WebServer extends Component {
 
@@ -16,6 +15,10 @@ export default class WebServer extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentWillUnmount() {
+        sessionStorage.setItem('accessInfo', JSON.stringify(this.state));
+    }
+
     nextPath(path) {
         this.props.history.push(path)
     }
@@ -25,17 +28,6 @@ export default class WebServer extends Component {
           [event.target.name]: event.target.value,
         });
     };
-
-    handleSubmit() {
-        const url = localStorage.getItem('serverURL')+'/webserver_result';
-        axios.post(url, this.state)
-        .then((response) => {
-
-            sessionStorage('webServerResult', response);
-            console.log(response);
-            this.nextPath('/webServer/result')
-        }).catch(err => console.log(err));
-    }
 
     render(){
 
@@ -92,14 +84,20 @@ export default class WebServer extends Component {
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button
-                        style={{width: 150}}
+                        style={{marginRight: 50, width: 120}}
                         variant="outline-success"
                         color="success"
                         size="small"
-                        onClick={
-                            this.handleSubmit.bind(this)
-                        }
-                        >Go Test</Button>
+                        href="/webServer/result"
+                    >
+                        Go Test
+                    </Button>
+                    <div style={{width: 150}}>
+                        <DropdownButton variant="outline-info" title="Go Unit Test">
+                            <Dropdown.Item href="/webServer/statusCodeResult">Status code Test</Dropdown.Item>
+                            <Dropdown.Item href="/webServer/headerLineResult">Header lines Test</Dropdown.Item>
+                        </DropdownButton>
+                    </div>
                 </div>
             </div>
 

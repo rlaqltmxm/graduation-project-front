@@ -56,7 +56,7 @@ class Quiz2 extends Component {
 
         sessionStorage.setItem('postSubmit', this.state.try);
 
-        axios.get(localStorage.getItem('serverURL')+'/http_result')
+        axios.post(localStorage.getItem('serverURL')+'/http_result', JSON.parse(sessionStorage.getItem('accessInfo')))
         .then((response) => {
             console.log(response);
             sessionStorage.setItem('httpCheck', response.data.httpCheck);

@@ -70,7 +70,7 @@ class Quiz1 extends Component {
     handleSubmit() {
 
         sessionStorage.setItem('getSubmit', this.state.try);
-        this.nextPath('/webClient/test_2')
+        this.nextPath('/webClient/post')
     }
 
     nextPath(path) {
@@ -91,6 +91,7 @@ class Quiz1 extends Component {
                             placeholder="your answer"
                             onChange={this.handleChange.bind(this)}></Form.Control></div>
                     <Button
+                        style={{marginTop:20}}
                         variant="outline-success"
                         color="success"
                         size="small"
