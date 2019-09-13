@@ -7,7 +7,7 @@ export default class ClientTest2 extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: sessionStorage.getItem('webClientURL'),
+            testingURL: sessionStorage.getItem('webClientSenarioURL'),
             active: false
         }
         this.getQuiz = this.getQuiz.bind(this);
@@ -19,8 +19,17 @@ export default class ClientTest2 extends Component {
 
     render(){
         return(
-            <div style={{marginTop:200}}>
-                <h2>Step3. Send POST request to '{this.state.url}'</h2>
+            <div style={{marginTop: 100}}>
+                <h2>Step3. Send POST request to '{this.state.testingURL}'</h2>
+                <h4 style={{padding: 10, textAlign: "left", marginLeft: 500}}>
+                    You should follow the protocols below: <br/><br/>
+                    <h5 style={{fontStyle: "italic"}}>
+                    *HTTP Version should be "1.1" <br/>
+                    *User-Agent header should be "ComputerNetwork" <br/>
+                    *The Message should include your student ID like below <br/>
+                    {JSON.stringify({ "studentID" : 20150044466 })}
+                    </h5>
+                </h4>
                 <div style={{marginTop: 20}}>
                     <Button
                         variant="outline-success"

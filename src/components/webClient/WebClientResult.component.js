@@ -88,7 +88,7 @@ export default class Result extends Component {
                             onClick={
                                 () => {
                                     localStorage.clear()
-                                    this.nextPath('/webClient/test_1')
+                                    this.nextPath('/webClient/get')
                                 }
                             }>RETRY
                         </Button></div>

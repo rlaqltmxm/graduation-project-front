@@ -28,13 +28,7 @@ export default class WebClient extends Component {
 
     goSenario() {
         sessionStorage.setItem('accessInfo', JSON.stringify(this.state))
-        axios.post(localStorage.getItem('serverURL')+'/http_scenario', this.state)
-        .then((response) => { 
-                console.log(response.data)
-                sessionStorage.setItem('webClientURL', response.data.url)
-                this.nextPath('/webClient/get')
-            } 
-        ).catch( response => { console.log(response) } );
+        this.nextPath('/webClient/get')
     }
 
     render(){
@@ -93,8 +87,8 @@ export default class WebClient extends Component {
                         variant="outline-success"
                         color="success"
                         size="small"
-                        onClick={() => 
-                            this.goSenario()
+                        onClick={
+                            this.goSenario.bind(this)
                         }
                         >Go Scenario Test</Button>
                     <DropdownButton variant="outline-info" title="Go Unit Test">

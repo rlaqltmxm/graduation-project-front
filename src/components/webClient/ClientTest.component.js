@@ -8,11 +8,20 @@ export default class ClientTest extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: sessionStorage.getItem('webClientURL'),
+            testingURL: null,
             active: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.getQuiz = this.getQuiz.bind(this);
+    }
+
+    componentDidMount() {
+        axios.post(localStorage.getItem('serverURL')+'/http_scenario', JSON.parse(sessionStorage.getItem('accessInfo')))
+        .then((response) => { 
+                this.setState({ testingURL: response.data.url });
+                sessionStorage.setItem('webClientSenarioURL', response.data.url);
+            } 
+        ).catch( response => { console.log(response) } );
     }
 
     handleChange(event) {
@@ -28,8 +37,8 @@ export default class ClientTest extends Component {
     render(){
         return(
 
-            <div style={{marginTop: 150}}>
-                <h2>Step2. Send GET message to URL '{this.state.url}'</h2>
+            <div style={{marginTop: 100}}>
+                <h2>Step2. Send GET message to URL '{this.state.testingURL}'</h2>
                 <h4 style={{padding: 10, textAlign: "left", marginLeft: 500}}>
                     You should follow the protocols below: <br/><br/>
                     <h5 style={{fontStyle: "italic"}}>

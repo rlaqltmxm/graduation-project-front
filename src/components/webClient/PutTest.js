@@ -44,7 +44,7 @@ export default class PutTest extends Component {
     handleResult() {
         axios.post(localStorage.getItem('serverURL')+'/put_result', JSON.parse(sessionStorage.getItem('accessInfo')))
         .then((response) => {
-            sessionStorage.setItem('webClientResultPut', JSON.stringify(response.data));
+            sessionStorage.setItem('webClientUnitPut', JSON.stringify(response.data));
             this.setState({
                 visible: true
             })
@@ -97,7 +97,7 @@ class Result extends Component {
     
     componentDidMount() {
         this.setState({
-            data: JSON.parse(sessionStorage.getItem('webClientResultPut'))
+            data: JSON.parse(sessionStorage.getItem('webClientUnitPut'))
         })
     }
 

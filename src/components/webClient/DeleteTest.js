@@ -96,7 +96,7 @@ class Result extends Component {
 
     componentDidMount() {
         this.setState({
-            data: JSON.parse(sessionStorage.getItem('webClientResultPut'))
+            data: JSON.parse(sessionStorage.getItem('webClientResultDelete'))
         })
     }
 

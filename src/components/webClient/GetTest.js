@@ -47,8 +47,11 @@ export default class GetTest extends Component {
             sessionStorage.setItem('webClientUnitGet', JSON.stringify(response.data));
             this.setState({
                 visible: true
-            })
-        }).catch(err => console.log(err));
+            });
+        }).catch(err => {
+            console.log(err);
+
+        });
     }
 
     nextPath(path) {
@@ -95,7 +98,7 @@ class Result extends Component {
 
     componentDidMount() {
         this.setState({
-            data: JSON.parse(sessionStorage.getItem('webClientResultPut'))
+            data: JSON.parse(sessionStorage.getItem('webClientUnitGet'))
         })
     }
 
