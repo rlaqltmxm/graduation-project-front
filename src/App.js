@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    localStorage.setItem('serverURL', 'http://192.168.0.15:8080')
+    localStorage.setItem('serverURL', 'http://192.168.0.3:8080')
     this.state = {
     	answer : ""
     }

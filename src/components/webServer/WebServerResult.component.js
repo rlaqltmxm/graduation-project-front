@@ -13,14 +13,16 @@ const tableStyle = {
 }
 
 const tempData = {
-    "connTest" : false, 
-    "multiThread" : false, 
-    "errorTest200" : false,
-    "errorTest404" : false,
-    "errorTest400" : false, 
-    "contentLengthTest" : false, 
-    "contentHtmlTest" : false, 
-    "contentImageTest" : false,
+    "connTest" : "Scoring..", 
+    "multiThread" : "Scoring..", 
+    "errorTest200" : "Scoring..",
+    "errorTest404" : "Scoring..",
+    "errorTest400" : "Scoring..", 
+    "contentLengthTest" : "Scoring..", 
+    "contentHtmlTest" : "Scoring..", 
+    "contentImageTest" : "Scoring..",
+    "cookieTest" : "Scoring..",
+    "elapsedTime": "Unknown",
 }
 
 export default class WebServerResult extends Component {
@@ -28,28 +30,38 @@ export default class WebServerResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            data: tempData,
         }
     }
 
     componentDidMount() {
         const url = localStorage.getItem('serverURL')+'/web_server';
-        const userInfo = sessionStorage.getItem('accessInfo');
+        const userInfo = JSON.parse(sessionStorage.getItem('accessInfo'));
         axios.post(url, userInfo)
         .then((res) => {
+            console.log(res.data);
             this.setState({
                 data: res.data == null ? tempData : 
-                JSON.parse(res.data),
+                res.data,
             })        
-        }).catch(err => 
-            console.log(err)
+        }).catch(err => { 
+                console.log(err);
+            }
         )
     }
 
     colorizeBool(target) {
-        const fontStyle = { fontWeight: "bolder" }
-        if(target) fontStyle.color = "blue";
-        else fontStyle.color = "red";
+        const fontStyle = {};
+        if (target == "Scoring..") {
+            fontStyle.fontSize = 15;
+            fontStyle.color = "black";
+            fontStyle.fontStyle = "italic";
+        }
+        else {
+            if (target) fontStyle.color = "blue";
+            else fontStyle.color = "red";
+            fontStyle.fontWeight = "bolder";
+        }
         return fontStyle;
     }
 
@@ -60,7 +72,6 @@ export default class WebServerResult extends Component {
     render() {
 
         const data = this.state.data;
-        console.log(this.state.data)
         return(
             <div style={{marginTop: 100}}>
                 <h2>Scores</h2>
@@ -113,8 +124,20 @@ export default class WebServerResult extends Component {
                             {(data.contentImageTest).toString().toUpperCase()}
                         </td>
                     </tr>
+                    <tr id="cookieTest">
+                        <td>(Optional) Set-Cookie: </td>
+                        <td style={this.colorizeBool(data.cookieTest)}>
+                            {(data.cookieTest).toString().toUpperCase()}
+                        </td>
+                    </tr>
+                    <tr style={{height: 30}}></tr>
+                    <tr id="elapsedTime">
+                        <td style={{columnSpan: 2, textAlign: "right", color: "grey", fontStyle: "italic"}}>
+                            Total elapsed time: {data.elapsedTime} ms
+                        </td>
+                    </tr>
                 </table>
-                <div style={{marginTop: 50, display: 'flex', justifyContent:'center'}}>
+                <div style={{marginTop: 20, display: 'flex', justifyContent:'center'}}>
                     <Form inline>
                         <div style={{padding: 10}}>
                         <Button

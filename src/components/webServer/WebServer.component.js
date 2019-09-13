@@ -15,7 +15,7 @@ export default class WebServer extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    componentWillUnmount() {
+    handleSubmit() {
         sessionStorage.setItem('accessInfo', JSON.stringify(this.state));
     }
 
@@ -41,7 +41,7 @@ export default class WebServer extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Name: </Form.Label>
-                                    <Form.Control
+                                    <Form.Control required
                                         type="name"
                                         name="sname"
                                         id="exampleEmail"
@@ -89,13 +89,20 @@ export default class WebServer extends Component {
                         color="success"
                         size="small"
                         href="/webServer/result"
+                        onClick={this.handleSubmit.bind(this)}
                     >
                         Go Test
                     </Button>
                     <div style={{width: 150}}>
                         <DropdownButton variant="outline-info" title="Go Unit Test">
-                            <Dropdown.Item href="/webServer/statusCodeResult">Status code Test</Dropdown.Item>
-                            <Dropdown.Item href="/webServer/headerLineResult">Header lines Test</Dropdown.Item>
+                            <Dropdown.Item 
+                                href="/webServer/statusCodeResult"
+                                onClick={this.handleSubmit.bind(this)} 
+                            >Status code Test</Dropdown.Item>
+                            <Dropdown.Item 
+                                href="/webServer/headerLineResult"
+                                onClick={this.handleSubmit.bind(this)}
+                            >Header lines Test</Dropdown.Item>
                         </DropdownButton>
                     </div>
                 </div>

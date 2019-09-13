@@ -13,11 +13,12 @@ const tableStyle = {
 }
 
 const tempData = {
-    "connTest" : false, 
-    "multiThread" : false, 
-    "errorTest200" : false,
-    "errorTest404" : false,
-    "errorTest400" : false,
+    "connTest" : "Scoring..", 
+    "multiThread" : "Scoring..", 
+    "errorTest200" : "Scoring..",
+    "errorTest404" : "Scoring..",
+    "errorTest400" : "Scoring..",
+    "elapsedTime" : "Unknown",
 }
 
 export default class StatusCodeTest extends Component {
@@ -30,27 +31,33 @@ export default class StatusCodeTest extends Component {
     }
 
     componentDidMount() {
-        const url = localStorage.getItem('serverURL')+'/web_server';
-        const userInfo = sessionStorage.getItem('accessInfo');
+        const url = localStorage.getItem('serverURL')+'/server-status';
+        const userInfo = JSON.parse(sessionStorage.getItem('accessInfo'));
         axios.post(url, userInfo)
         .then((res) => {
+            console.log(res.data);
             this.setState({
                 data: res.data == null ? tempData : 
-                JSON.parse(res.data),
+                res.data,
             })        
         }).catch(err => {
                 console.log(err);
-                this.setState({
-                    data: tempData
-                })
             }
         )
     }
 
     colorizeBool(target) {
-        const fontStyle = { fontWeight: "bolder" }
-        if(target) fontStyle.color = "blue";
-        else fontStyle.color = "red";
+        const fontStyle = {};
+        if (target == "Scoring..") {
+            fontStyle.fontSize = 15;
+            fontStyle.color = "black";
+            fontStyle.fontStyle = "italic";
+        }
+        else {
+            if (target) fontStyle.color = "blue";
+            else fontStyle.color = "red";
+            fontStyle.fontWeight = "bolder";
+        }
         return fontStyle;
     }
 
@@ -60,8 +67,7 @@ export default class StatusCodeTest extends Component {
 
     render() {
 
-        const data = this.state.data;
-        console.log(this.state.data)
+        const {data} = this.state;
         return(
             <div style={{marginTop: 100}}>
                 <h2>Web Server Unit Test Result </h2>
@@ -97,8 +103,14 @@ export default class StatusCodeTest extends Component {
                             {(data.errorTest400).toString().toUpperCase()}
                         </td>
                     </tr>
+                    <tr style={{height: 30}}></tr>
+                    <tr id="elapsedTime">
+                        <td style={{columnSpan: 2, textAlign: "right", color: "grey", fontStyle: "italic"}}>
+                            Total elapsed time: {data.elapsedTime} ms
+                        </td>
+                    </tr>
                 </table>
-                <div style={{marginTop: 50, display: 'flex', justifyContent:'center'}}>
+                <div style={{marginTop: 20, display: 'flex', justifyContent:'center'}}>
                     <Form inline>
                         <div style={{padding: 10}}>
                         <Button
