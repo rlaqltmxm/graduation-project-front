@@ -32,6 +32,10 @@ export default class WebClient extends Component {
     }
 
     render(){
+
+        const values = this.state;
+        const isValidInput = values.sname == '' || values.sno == '' 
+                        || values.sip == '' || values.sport == '';
         return(
             <div style={{marginTop: 150}}>
                 <h2>Step1. Type your profile and WEB Client Information</h2>
@@ -42,6 +46,7 @@ export default class WebClient extends Component {
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Name: </Form.Label>
                                     <Form.Control
+                                        isValid={values.sname != ''}
                                         type="name"
                                         name="sname"
                                         id="exampleEmail"
@@ -52,6 +57,7 @@ export default class WebClient extends Component {
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Student ID: </Form.Label>
                                     <Form.Control
+                                        isValid={values.sno != ''}
                                         type="name"
                                         name="sno"
                                         id="exampleEmail"
@@ -62,6 +68,7 @@ export default class WebClient extends Component {
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Your IP: </Form.Label>
                                     <Form.Control
+                                        isValid={values.sip != ''}
                                         type="name"
                                         name="sip"
                                         id="exampleEmail"
@@ -72,6 +79,7 @@ export default class WebClient extends Component {
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                     <Form.Label for="name">Your Port: </Form.Label>
                                     <Form.Control
+                                        isValid={values.sport != ''}
                                         type="name"
                                         name="sport"
                                         id="exampleEmail"
@@ -83,6 +91,7 @@ export default class WebClient extends Component {
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button
+                        disabled={isValidInput}
                         style={{marginRight: 50, width: 150}}
                         variant="outline-success"
                         color="success"
@@ -91,7 +100,7 @@ export default class WebClient extends Component {
                             this.goSenario.bind(this)
                         }
                         >Go Scenario Test</Button>
-                    <DropdownButton variant="outline-info" title="Go Unit Test">
+                    <DropdownButton disabled={isValidInput} variant="outline-info" title="Go Unit Test">
                         <Dropdown.Item href="/webClient/getUnitTest">GET method Test</Dropdown.Item>
                         <Dropdown.Item href="/webClient/postUnitTest">POST method Test</Dropdown.Item>
                         <Dropdown.Item href="/webClient/pustUnitTest">PUT method Test</Dropdown.Item>

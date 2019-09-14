@@ -31,8 +31,11 @@ export default class WebServer extends Component {
 
     render(){
 
-        return(
+        const values = this.state;
+        const isValidInput = values.sname == '' || values.sno == '' 
+                        || values.sip == '' || values.sport == '';
 
+        return(
             <div style={{marginTop: 150}}>
                 <h2>Step1. Type your profile and WEB Server Information</h2>
                 <div style={{padding: 10, display: 'flex', justifyContent: 'center'}}>
@@ -41,7 +44,8 @@ export default class WebServer extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Name: </Form.Label>
-                                    <Form.Control required
+                                    <Form.Control 
+                                        isValid={values.sname != ''}
                                         type="name"
                                         name="sname"
                                         id="exampleEmail"
@@ -51,7 +55,8 @@ export default class WebServer extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Student ID: </Form.Label>
-                                    <Form.Control
+                                    <Form.Control 
+                                        isValid={values.sno != ''}
                                         type="name"
                                         name="sno"
                                         id="exampleEmail"
@@ -61,7 +66,8 @@ export default class WebServer extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                         <Form.Label for="name">Your IP: </Form.Label>
-                                    <Form.Control
+                                    <Form.Control 
+                                        isValid={values.sip != ''}
                                         type="name"
                                         name="sip"
                                         id="exampleEmail"
@@ -71,7 +77,8 @@ export default class WebServer extends Component {
                                 <Form.Group>
                                     <div style={{padding:10, marginLeft: 5, textAlign: 'left'}}>
                                     <Form.Label for="name">Your Port: </Form.Label>
-                                    <Form.Control
+                                    <Form.Control 
+                                        isValid={values.sport != ''}
                                         type="name"
                                         name="sport"
                                         id="exampleEmail"
@@ -84,6 +91,7 @@ export default class WebServer extends Component {
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
                     <Button
+                        disabled={isValidInput}
                         style={{marginRight: 50, width: 120}}
                         variant="outline-success"
                         color="success"
@@ -94,7 +102,7 @@ export default class WebServer extends Component {
                         Go Test
                     </Button>
                     <div style={{width: 150}}>
-                        <DropdownButton variant="outline-info" title="Go Unit Test">
+                        <DropdownButton disabled={isValidInput} variant="outline-info" title="Go Unit Test">
                             <Dropdown.Item 
                                 href="/webServer/statusCodeResult"
                                 onClick={this.handleSubmit.bind(this)} 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Switch, Route } from 'react-router-dom';
 
 import { UserInfo, ConnectTest, ObserverTest, Result,
   WebServerResult, HeaderLineTest, StatusCodeTest,
@@ -20,7 +20,7 @@ class App extends Component {
 
   render() {   
     return (
-		<Router>
+		<Switch>
 			<div className="App" style={{margin: 'auto'}}>
 				<Route path="/" exact component={Main} />
 				<Route path="/webMain" exact component={WebMain} />
@@ -45,7 +45,7 @@ class App extends Component {
 				<Route path="/coapClient/observer" component={ObserverTest} />
 				<Route path="/coapClient/result" component={Result} />
 			</div>
-		</Router>
+		</Switch>
 		);
 	}
 }

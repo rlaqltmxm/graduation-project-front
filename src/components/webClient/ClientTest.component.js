@@ -37,7 +37,7 @@ export default class ClientTest extends Component {
     render(){
         return(
 
-            <div style={{marginTop: 100}}>
+            <div style={{marginTop: 150}}>
                 <h2>Step2. Send GET message to URL '{this.state.testingURL}'</h2>
                 <h4 style={{padding: 10, textAlign: "left", marginLeft: 500}}>
                     You should follow the protocols below: <br/><br/>
