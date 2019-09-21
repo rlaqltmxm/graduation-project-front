@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { UserInfo, ConnectTest, ObserverTest, Result,
   WebServerResult, HeaderLineTest, StatusCodeTest,
@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    localStorage.setItem('serverURL', 'http://192.168.0.3:8080')
+    localStorage.setItem('serverURL', 'http://172.16.165.1:8080')
     this.state = {
     	answer : ""
     }
@@ -20,13 +20,14 @@ class App extends Component {
 
   render() {   
     return (
+		<BrowserRouter basename={process.env.PUBLIC_URL}>
 		<Switch>
 			<div className="App" style={{margin: 'auto'}}>
 				<Route path="/" exact component={Main} />
 				<Route path="/webMain" exact component={WebMain} />
 				<Route path="/webClient" exact component={WebClient} />
-				<Route path="/webClient/get" component={ClientTest} />
-				<Route path="/webClient/post" component={ClientTest2} />
+				<Route path="/webClient/get" exact component={ClientTest} />
+				<Route path="/webClient/post" exact component={ClientTest2} />
 				<Route path="/webClient/result" component={WebClientResult} />
 				<Route path="/webClient/getUnitTest" component={GetTest}/>
 				<Route path="/webClient/postUnitTest" component={PostTest}/>
@@ -46,6 +47,7 @@ class App extends Component {
 				<Route path="/coapClient/result" component={Result} />
 			</div>
 		</Switch>
+		</BrowserRouter>
 		);
 	}
 }
