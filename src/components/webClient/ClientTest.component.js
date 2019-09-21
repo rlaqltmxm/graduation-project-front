@@ -8,7 +8,7 @@ export default class ClientTest extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: null,
+            testingURL: 'null',
             active: false
         }
         this.handleChange = this.handleChange.bind(this);
@@ -16,10 +16,9 @@ export default class ClientTest extends Component {
     }
 
     componentDidMount() {
-        axios.post(localStorage.getItem('serverURL')+'/http_scenario', JSON.parse(sessionStorage.getItem('accessInfo')))
+        axios.post(localStorage.getItem('serverURL')+'/scenario_get', JSON.parse(sessionStorage.getItem('accessInfo')))
         .then((response) => { 
                 this.setState({ testingURL: response.data.url });
-                sessionStorage.setItem('webClientSenarioURL', response.data.url);
             } 
         ).catch( response => { console.log(response) } );
     }

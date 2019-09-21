@@ -8,7 +8,9 @@ const tableStyle = {
     width: 300,
     fontSize: 17,
     fontStyle: 'bold',
-    fontFamily: 'verdana'
+    fontFamily: 'verdana',
+    borderTop: '1px solid #E0E0E0',
+    borderBottom: '1px solid #E0E0E0'
 }
 
 const tempData = {
@@ -23,7 +25,7 @@ export default class PutTest extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
+            visible: true,
             url: null,
         }
     }
@@ -51,28 +53,26 @@ export default class PutTest extends Component {
         }).catch(err => console.log(err));
     }
 
-    nextPath(path) {
-        window.location = path
-    }
 
     render(){
         return(
             <div className="wrapper" 
-                style={{marginTop: 200, display: "flex", flexDirection: "row", verticalAlign: "middle"}}>
-                <h4 className="protocol-spec" 
-                    style={{flex: 1, fontStyle: "italic"}}>
-                    *HTTP Version should be "1.1" <br/>
-                    *User-Agent header should be "ComputerNetwork" <br/>
-                    *The Message should include your student ID like below <br/>
-                    {JSON.stringify({ "studentID" : 20150044466 })}
-                </h4>
+                style={{marginTop: 150, display: "flex", verticalAlign: "middle"}}>
                 <div style={{flex: 1}}>
                     <div className="put-quiz" 
                         style={{padding:10, paddingRight: 150, paddingLeft: 150}}>
-                        <h3 style={{marginBottom: 50}}>
+                        <h3>
                             Send Your PUT message to url '{this.state.url}'
                         </h3>
+                        <h4 className="protocol-spec" 
+                            style={{flex: 1, fontStyle: "italic"}}>
+                            *HTTP Version should be "1.1" <br/>
+                            *User-Agent header should be "ComputerNetwork" <br/>
+                            *The Message should include your student ID like below <br/>
+                            {JSON.stringify({ "studentID" : 20150044466 })}
+                        </h4>
                         <Button
+                            style={{margin: 30}}
                             variant="outline-success"
                             color="success"
                             size="medium"
@@ -97,8 +97,13 @@ class Result extends Component {
     
     componentDidMount() {
         this.setState({
-            data: JSON.parse(sessionStorage.getItem('webClientUnitPut'))
+            data: JSON.parse(sessionStorage.getItem('webClientUnitPut')) || tempData,
         })
+    }
+
+    
+    nextPath(path) {
+        window.location = path
     }
 
     colorize(target) {
@@ -111,24 +116,51 @@ class Result extends Component {
     render() {
         const {data} = this.state;
         return(
-            <table style={tableStyle}>
-                <tr>
-                    <td>HTTP Check</td>
-                    <td style={this.colorize(data.httpCheck)}>{(data.httpCheck).toString()}</td>
-                </tr>
-                <tr>
-                    <td>Request Method</td>
-                    <td style={this.colorize(data.requestCheck)}>{(data.requestCheck).toString()}</td>
-                </tr>
-                <tr>
-                    <td>HTTP Version</td>
-                    <td style={this.colorize(data.httpVersion)}>{(data.httpVersion).toString()}</td>
-                </tr>
-                <tr>
-                    <td>User Agent</td>
-                    <td style={this.colorize(data.headerUserAgent)}>{(data.headerUserAgent).toString()}</td>
-                </tr>
-            </table>
+            <div>
+                <table style={tableStyle}>
+                    <tr>
+                        <td>HTTP Check</td>
+                        <td style={this.colorize(data.httpCheck)}>{(data.httpCheck).toString()}</td>
+                    </tr>
+                    <tr>
+                        <td>Request Method</td>
+                        <td style={this.colorize(data.requestCheck)}>{(data.requestCheck).toString()}</td>
+                    </tr>
+                    <tr>
+                        <td>HTTP Version</td>
+                        <td style={this.colorize(data.httpVersion)}>{(data.httpVersion).toString()}</td>
+                    </tr>
+                    <tr>
+                        <td>User Agent</td>
+                        <td style={this.colorize(data.headerUserAgent)}>{(data.headerUserAgent).toString()}</td>
+                    </tr>
+                </table>
+                <div style={{padding: 30, display: 'flex', justifyContent: 'center'}}>
+                    <Button
+                        style={{marginRight: 30}}
+                        variant="outline-success"
+                        color="success"
+                        size="small"
+                        onClick={
+                            () => {
+                                localStorage.clear()
+                                this.nextPath('/webClient')
+                            }
+                        }>RETRY
+                    </Button>
+                    <Button
+                        variant="outline-success"
+                        color="success"
+                        size="small"
+                        onClick={
+                            () => {
+                                localStorage.clear()
+                                this.nextPath('/')
+                            }
+                        }>MAIN PAGE
+                    </Button>
+                </div>
+            </div>
         )
     }
 }

@@ -7,7 +7,7 @@ export default class ClientTest2 extends Component {
     constructor(props){
         super(props);
         this.state = {
-            testingURL: sessionStorage.getItem('webClientSenarioURL'),
+            testingURL: 'null',
             active: false
         }
         this.getQuiz = this.getQuiz.bind(this);
@@ -15,6 +15,15 @@ export default class ClientTest2 extends Component {
 
     getQuiz() {
         this.setState({ active: !this.state.active })
+    }
+
+    componentDidMount() {
+        axios.post(localStorage.getItem('serverURL') + '/scenario_post', JSON.parse(sessionStorage.getItem('accessInfo')))
+        .then((res) => {
+            this.setState({ testingURL: res.url });
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     render(){
