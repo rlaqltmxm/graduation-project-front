@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2e3c0ea53c1fe1293336ad1fc3b09aba",
+    "revision": "74ea40e7e6546d951989858bb0e8d982",
     "url": "/graduation-project-front/index.html"
   },
   {
-    "revision": "292553d6d435454c5c7b",
+    "revision": "029f1f88639b00440e17",
     "url": "/graduation-project-front/static/css/2.266e55a5.chunk.css"
   },
   {
-    "revision": "12ca1a87fe3038bfb0d1",
+    "revision": "2d338ac0a2662e0f46cf",
     "url": "/graduation-project-front/static/css/main.b1f82f48.chunk.css"
   },
   {
-    "revision": "292553d6d435454c5c7b",
-    "url": "/graduation-project-front/static/js/2.e51012d6.chunk.js"
+    "revision": "029f1f88639b00440e17",
+    "url": "/graduation-project-front/static/js/2.cb993752.chunk.js"
   },
   {
-    "revision": "12ca1a87fe3038bfb0d1",
-    "url": "/graduation-project-front/static/js/main.e6f9eca3.chunk.js"
+    "revision": "2d338ac0a2662e0f46cf",
+    "url": "/graduation-project-front/static/js/main.f33be138.chunk.js"
   },
   {
     "revision": "12b3927f7b2deda6828c",
