@@ -40,7 +40,7 @@ export default class CoapMain extends Component {
                     </div>
                     <Button
                         variant="outline-info"
-                        onClick={() => this.nextPath('/coapClient')}
+                        onClick={() => this.nextPath('/coap/coapClient')}
                         style={{margin: 'auto'}}>
                         GO TEST
                     </Button>
@@ -56,7 +56,7 @@ export default class CoapMain extends Component {
                     </div>
                     <Button
                         variant="outline-info"
-                        onClick={() => this.nextPath('/unitTest')}
+                        onClick={() => this.nextPath('/coap/unitTest')}
                         style={{margin: 'auto'}}>
                         GO TEST
                     </Button>

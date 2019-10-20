@@ -56,9 +56,9 @@ export default class WebServerResult extends Component {
         .then((res) => {
             console.log(res.data);
             this.setState({
-                data: res.data == null ? tempData : 
+                data: res.data == null ? [] : 
                 res.data,
-            })        
+            });
         }).catch(err => { 
                 console.log(err);
             }
@@ -66,7 +66,7 @@ export default class WebServerResult extends Component {
     }
 
     nextPath(path) {
-        this.props.history.push(path)
+        window.location = path;
     }
 
     render() {
@@ -148,7 +148,7 @@ export default class WebServerResult extends Component {
                                     onClick={
                                         () => {
                                             sessionStorage.clear()
-                                            this.nextPath('/webServer')
+                                            this.nextPath('/web/webServer')
                                         }
                                     }>RETRY
                                 </Button>
@@ -179,22 +179,6 @@ export default class WebServerResult extends Component {
 
 class HistoryTable extends Component {
 
-    tempData = [
-        {
-            "multiThreadCorrect":false,
-            "error400Correct":true,
-            "lengthCorrect":false,
-            "htmlCorrect":false,
-            "connCorrect":false,
-            "error200Correct":true,
-            "imageCorrect":false,
-            "error404Correct":false,
-            "cookieCorrect":false,
-            date: "today",
-            elapsedTime: 0,
-        },
-    ];
-
     constructor(props) {
         super(props);
         this.state = {
@@ -209,23 +193,20 @@ class HistoryTable extends Component {
         const userInfo = JSON.parse(sessionStorage.getItem('accessInfo'));
         axios.post(url, userInfo)
         .then((res) => {
-            this.setState({
-                data: res.data == null || res.data == undefined ? this.tempData : res.data,
-            })
+            if (res.data != null && res.data != undefined) {
+                const jsonArr = [];
+                for (let ob of res.data) jsonArr.push(JSON.parse(ob));
+                this.setState({
+                    data: jsonArr,
+                });
+            }
         }).catch(err => {
-            this.setState({
-                data: this.tempData
-            })
+            console.log(err);
         });
-    }
-
-    componentDidMount() {
-        this.onLoadData();
     }
 
     renderPopup() {
         const data = this.state.popupData || null;
-        console.log(data);
         if (data == null || data == undefined) return;
 
         return(
@@ -319,8 +300,6 @@ class HistoryTable extends Component {
 
         const overflowTableStyle = { 
             ...tableStyle, 
-            maxHeight: 300,
-            overflowY: 'auto', 
             textAlign: 'right', 
         };
         const { data } = this.state;
@@ -330,41 +309,43 @@ class HistoryTable extends Component {
                 {this.renderPopup()}
                 <h2>History</h2>
                 {this.state.data.length > 0 ?
-                <table id="history-table" style={overflowTableStyle}>
-                    <thead>
-                        <tr style={{ height: 30, fontStyle: 'bolder' }}>
-                            <td>No.</td>
-                            <td>Date</td>
-                            <td>Score</td>
-                            <td>Detail</td>
-                        </tr>
-                    </thead>
-                    <tbody style={{ fontSize: 15 }}>
-                        {data.sort((a, b) => (new Date(b.date) - new Date(a.date)))
-                        .map((e, i) => {
-                            const score = Object.values(e).filter(v => v == true).length;
-                            return (
-                                <tr style={{ height: 20, borderBottom: '1px solid black' }}>
-                                    <td>{i}</td>
-                                    <td>{e.date}</td>
-                                    <td>{score} /9</td>
-                                    <td>
-                                        <u 
-                                            style={{ color: '#28a745' }}
-                                            onClick={() => {
-                                                this.setState({
-                                                    popupOpen: true,
-                                                    popupData: e
-                                                });    
-                                            }}>
-                                            See detail
-                                        </u>
-                                    </td>
-                                </tr>  
+                <div style={{ height: 300, overflowY: 'auto' }}>
+                    <table id="history-table" style={overflowTableStyle}>
+                        <thead>
+                            <tr style={{ height: 30, fontStyle: 'bolder' }}>
+                                <td>No.</td>
+                                <td>Date</td>
+                                <td>Score</td>
+                                <td>Detail</td>
+                            </tr>
+                        </thead>
+                        <tbody style={{ fontSize: 15 }}>
+                            {data.sort((a, b) => (new Date(a.date) - new Date(b.date)))
+                            .map((e, i) => {
+                                const score = Object.values(e).filter(v => v == true).length;
+                                return (
+                                    <tr style={{ height: 20, borderBottom: '1px solid black' }}>
+                                        <td>{i}</td>
+                                        <td>{e.date}</td>
+                                        <td>{score} /9</td>
+                                        <td>
+                                            <u 
+                                                style={{ color: '#28a745' }}
+                                                onClick={() => {
+                                                    this.setState({
+                                                        popupOpen: true,
+                                                        popupData: e
+                                                    });    
+                                                }}>
+                                                See detail
+                                            </u>
+                                        </td>
+                                    </tr>  
+                                )}
                             )}
-                        )}
-                    </tbody> 
-                </table> : 
+                        </tbody> 
+                    </table>
+                </div> : 
                 <h4 style={{ fontStyle: 'italic', marginTop: 50 }}>No history found.</h4>}
                 <div style={{marginTop: 20, display: 'flex', justifyContent:'center'}}>
                     <Form inline>
@@ -374,7 +355,7 @@ class HistoryTable extends Component {
                                 color="success"
                                 size="small"
                                 onClick={
-                                    () => this.onLoadData.bind(this)
+                                    this.onLoadData.bind(this)
                                 }>Load
                             </Button>
                         </div>

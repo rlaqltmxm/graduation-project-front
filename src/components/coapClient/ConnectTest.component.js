@@ -8,7 +8,7 @@ export default class ConnectTest extends Component {
     constructor(props){
         super(props);
         this.state = {
-            url: localStorage.getItem('connURL'),
+            url: sessionStorage.getItem('connURL'),
             active: false
         }
     }
@@ -65,22 +65,16 @@ class Quiz1 extends Component {
 
     handleSubmit = () => {
 
-        localStorage.setItem("submit1", this.state.try)
-        console.log(this.state.try)
-
+        sessionStorage.setItem("submit1", this.state.try)
         axios.get(localStorage.getItem('serverURL')+'/obs')
         .then( 
             response => { 
-                // console.log(response.data)
-                localStorage.setItem("obsURL", response.data.url)
-                this.nextPath('/coapClient/observer')
-                //console.log(localStorage.getItem('obsURL'))
+                sessionStorage.setItem("obsURL", response.data.url)
+                this.nextPath('/coap/coapClient/connect/observer')
             } 
             
         )
         .catch( response => { console.log(response) } );
-
-        // this.nextPath('/observer')
     }
 
     nextPath = (path) => {

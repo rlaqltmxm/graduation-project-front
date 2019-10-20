@@ -143,8 +143,8 @@ class Result extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
-                                this.nextPath('/webClient')
+                                sessionStorage.clear()
+                                this.nextPath('/web/webClient')
                             }
                         }>RETRY
                     </Button>
@@ -154,7 +154,7 @@ class Result extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
+                                sessionStorage.clear()
                                 this.nextPath('/')
                             }
                         }>MAIN PAGE

@@ -7,8 +7,8 @@ export default class Result extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: localStorage.getItem("score1"),
-            score2: localStorage.getItem('score2'),
+            score1: sessionStorage.getItem("score1"),
+            score2: sessionStorage.getItem('score2'),
             str1: "\"Connection Success\"",
             str2: "\"Connection Failed\"",
             str3: "\"Observer Success\"",
@@ -28,12 +28,12 @@ export default class Result extends Component {
 
     sendResult = () => {
         var temp = {
-            sname: localStorage.getItem('sname'),
-            sno: localStorage.getItem('sno'),
-            sip: localStorage.getItem('sip'),
-            sport: localStorage.getItem('sport'),
-            msgScore: localStorage.getItem('score1'),
-            maxScore: localStorage.getItem('score2')
+            sname: sessionStorage.getItem('sname'),
+            sno: sessionStorage.getItem('sno'),
+            sip: sessionStorage.getItem('sip'),
+            sport: sessionStorage.getItem('sport'),
+            msgScore: sessionStorage.getItem('score1'),
+            maxScore: sessionStorage.getItem('score2')
         }
 
         axios.post(localStorage.getItem('serverURL')+'/score', temp)
@@ -85,8 +85,8 @@ export default class Result extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
-                                this.nextPath('/connect')
+                                sessionStorage.clear()
+                                this.nextPath('/coap/coapClient')
                             }
                         }>RETRY
                     </Button></div>
@@ -97,7 +97,7 @@ export default class Result extends Component {
                         size="small"
                         onClick={
                             () => {                                 
-                                localStorage.clear()
+                                sessionStorage.clear()
                                 this.nextPath('/')
                             }
                         }>MAIN PAGE

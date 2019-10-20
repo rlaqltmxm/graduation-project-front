@@ -29,24 +29,18 @@ class UserInfo extends Component {
     };
 
     sendInfo = () => {
-
-        console.log(this.state)
-
-        localStorage.setItem("sname", this.state.sname)
-        localStorage.setItem('sno', this.state.sno)
-        localStorage.setItem('sip', this.state.sip)
-        localStorage.setItem('sport', this.state.sport)
+        sessionStorage.setItem("sname", this.state.sname)
+        sessionStorage.setItem('sno', this.state.sno)
+        sessionStorage.setItem('sip', this.state.sip)
+        sessionStorage.setItem('sport', this.state.sport)
 
         var url = localStorage.getItem('serverURL') + '/conn'        // var headers = { 'Access-Control-Allow-Origin': '*' }
         axios.get(url)
         .then( 
             response => { 
                 console.log(response.data)
-                localStorage.setItem("connURL", response.data.url)
-
-                // this.setState({ answer: response.data.max })
-                // console.log(this.state.answer)
-                this.nextPath('/coapClient/connect')
+                sessionStorage.setItem("connURL", response.data.url)
+                this.nextPath('/coap/coapClient/connect')
             } 
             
         )

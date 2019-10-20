@@ -76,13 +76,8 @@ class Quiz1 extends Component {
     };
 
     handleSubmit() {
-
         sessionStorage.setItem('getSubmit', this.state.try);
-        this.nextPath('/webClient/post')
-    }
-
-    nextPath(path) {
-        window.location = path
+        window.location = '/web/webClient/get/post';
     }
 
     render(){
@@ -97,7 +92,7 @@ class Quiz1 extends Component {
                             name="try"
                             id="exampleEmail"
                             placeholder="your answer"
-                            onChange={this.handleChange.bind(this)}></Form.Control></div>
+                            onChange={this.handleChange}></Form.Control></div>
                     <Button
                         style={{marginTop:20}}
                         variant="outline-success"

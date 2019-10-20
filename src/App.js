@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    localStorage.setItem('serverURL', 'http://172.16.161.166:8080')
+    localStorage.setItem('serverURL', 'http://192.168.0.2:8080')
     this.state = {
     	answer : ""
     }
@@ -24,27 +24,27 @@ class App extends Component {
 		<Switch>
 			<div className="App" style={{margin: 'auto'}}>
 				<Route path="/" exact component={Main} />
-				<Route path="/webMain" exact component={WebMain} />
-				<Route path="/webClient" exact component={WebClient} />
-				<Route path="/webClient/get" exact component={ClientTest} />
-				<Route path="/webClient/post" exact component={ClientTest2} />
-				<Route path="/webClient/result" component={WebClientResult} />
-				<Route path="/webClient/getUnitTest" component={GetTest}/>
-				<Route path="/webClient/postUnitTest" component={PostTest}/>
-				<Route path="/webClient/putUnitTest" component={PutTest}/>
-				<Route path="/webClient/deleteUnitTest" component={DeleteTest}/>
-				<Route path="/webServer" exact component={WebServer}/>
-				<Route path="/webServer/result" component={WebServerResult} />
-				<Route path="/webServer/statusCodeResult" component={StatusCodeTest} />
-				<Route path="/webServer/headerLineResult" component={HeaderLineTest} />
-				<Route path="/coapMain" exact component={CoapMain} />
-				<Route path="/unitTest" exact component={UnitUserInfo} />
-				<Route path="/unitTest/unitPhase" component={UnitPhase} />
-				<Route path="/unitTest/unitResult" component={UnitResult} />
-				<Route path="/coapClient" exact component={UserInfo} />
-				<Route path="/coapClient/connect" component={ConnectTest} />
-				<Route path="/coapClient/observer" component={ObserverTest} />
-				<Route path="/coapClient/result" component={Result} />
+				<Route path="/web" exact component={WebMain} />
+				<Route path="/web/webClient" exact component={WebClient} />
+				<Route path="/web/webClient/get" exact component={ClientTest} />
+				<Route path="/web/webClient/get/post" exact component={ClientTest2} />
+				<Route path="/web/webClient/get/post/result" component={WebClientResult} />
+				<Route path="/web/webClient/getUnitTest" component={GetTest}/>
+				<Route path="/web/webClient/postUnitTest" component={PostTest}/>
+				<Route path="/web/webClient/putUnitTest" component={PutTest}/>
+				<Route path="/web/webClient/deleteUnitTest" component={DeleteTest}/>
+				<Route path="/web/webServer" exact component={WebServer}/>
+				<Route path="/web/webServer/result" component={WebServerResult} />
+				<Route path="/web/webServer/statusCodeResult" component={StatusCodeTest} />
+				<Route path="/web/webServer/headerLineResult" component={HeaderLineTest} />
+				<Route path="/coap" exact component={CoapMain} />
+				<Route path="/coap/unitTest" exact component={UnitUserInfo} />
+				<Route path="/coap/unitTest/unitPhase" exact component={UnitPhase} />
+				<Route path="/coap/unitTest/unitPhase/unitResult" component={UnitResult} />
+				<Route path="/coap/coapClient" exact component={UserInfo} />
+				<Route path="/coap/coapClient/connect" exact component={ConnectTest} />
+				<Route path="/coap/coapClient/connect/observer" exact component={ObserverTest} />
+				<Route path="/coap/coapClient/connect/observer/result" component={Result} />
 			</div>
 		</Switch>
 		</BrowserRouter>

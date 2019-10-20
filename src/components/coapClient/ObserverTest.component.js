@@ -9,10 +9,8 @@ export default class ObserverTest extends Component {
         super(props);
         this.state = {
             active: false,
-            url: localStorage.getItem("obsURL")
+            url: sessionStorage.getItem("obsURL")
         }
-        console.log(localStorage.getItem("obsURL"))
-
     }
 
     nextPath = (path) => {
@@ -58,7 +56,7 @@ class Quiz2 extends Component {
         super(props)
         this.state = {
             try: -1,
-            answer: localStorage.getItem('answer2')
+            answer: sessionStorage.getItem('answer2')
         }
         console.log("")
     }
@@ -71,13 +69,7 @@ class Quiz2 extends Component {
 
     handleSubmit = () => {
 
-        localStorage.setItem("submit2", this.state.try)
-        console.log(this.state.try)
-
-        var temp = {
-            stuInfo: localStorage.getItem('accessInfo')
-
-        }
+        sessionStorage.setItem("submit2", this.state.try)
         axios.get(localStorage.getItem('serverURL')+'/result')
         .then( 
             res => { 
@@ -86,13 +78,11 @@ class Quiz2 extends Component {
                 var answer1 = res.data.message
                 var answer2 = res.data.max
 
-                if (answer1 == localStorage.getItem("submit1")) localStorage.setItem("score1", 50)
-                else localStorage.setItem("score1", 0)
+                if (answer1 == sessionStorage.getItem("submit1")) sessionStorage.setItem("score1", 50)
+                else sessionStorage.setItem("score1", 0)
 
-                if (answer2 == localStorage.getItem("submit2")) localStorage.setItem("score2", 50)
-                else localStorage.setItem("score2", 0)
-                // this.setState({ answer: response.data.max })
-                // console.log(this.state.answer)
+                if (answer2 == sessionStorage.getItem("submit2")) sessionStorage.setItem("score2", 50)
+                else sessionStorage.setItem("score2", 0)
                 this.nextPath('/coapClient/result')
             } 
             

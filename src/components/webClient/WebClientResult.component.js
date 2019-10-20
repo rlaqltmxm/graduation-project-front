@@ -16,7 +16,7 @@ export default class Result extends Component {
     }
 
     nextPath(path) {
-        window.location = path
+        this.props.history.push(path);
     }
 
     messages(target) {
@@ -87,8 +87,8 @@ export default class Result extends Component {
                             size="small"
                             onClick={
                                 () => {
-                                    localStorage.clear()
-                                    this.nextPath('/webClient/get')
+                                    sessionStorage.clear()
+                                    window.location = '/web/webClient';
                                 }
                             }>RETRY
                         </Button></div>
@@ -99,8 +99,8 @@ export default class Result extends Component {
                             size="small"
                             onClick={
                                 () => {
-                                    localStorage.clear()
-                                    this.nextPath('/')
+                                    sessionStorage.clear()
+                                    window.location = '/';
                                 }
                             }>MAIN PAGE
                         </Button></div>

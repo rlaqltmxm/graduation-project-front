@@ -96,7 +96,7 @@ export default class WebServer extends Component {
                         variant="outline-success"
                         color="success"
                         size="small"
-                        href="/webServer/result"
+                        href="/web/webServer/result"
                         onClick={this.handleSubmit.bind(this)}
                     >
                         Go Test
@@ -104,11 +104,11 @@ export default class WebServer extends Component {
                     <div style={{width: 150}}>
                         <DropdownButton disabled={isValidInput} variant="outline-info" title="Go Unit Test">
                             <Dropdown.Item 
-                                href="/webServer/statusCodeResult"
+                                href="/web/webServer/statusCodeResult"
                                 onClick={this.handleSubmit.bind(this)} 
                             >Status code Test</Dropdown.Item>
                             <Dropdown.Item 
-                                href="/webServer/headerLineResult"
+                                href="/web/webServer/headerLineResult"
                                 onClick={this.handleSubmit.bind(this)}
                             >Header lines Test</Dropdown.Item>
                         </DropdownButton>

@@ -86,15 +86,10 @@ class Quiz2 extends Component {
         .catch((response) => {
             console.log(response);
         })
-        .finally (
-            this.nextPath('/webClient/result')
-        )
+        .finally (() => {
+            window.location = '/web/webClient/get/post/result';   
+        })
     }
-
-    nextPath(path) {
-        window.location = path
-    }
-
     render(){
         return(
             <div style={{padding:10, marginTop: 30, marginRight: 300, marginLeft: 300}}>

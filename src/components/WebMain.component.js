@@ -32,7 +32,7 @@ export default class WebMain extends Component {
                     </div>
                     <Button
                         variant="outline-info"
-                        onClick={() => this.nextPath('/webClient')}
+                        onClick={() => this.nextPath('/web/webClient')}
                         style={{margin: 'auto'}}>
                         GO TEST
                     </Button>
@@ -48,7 +48,7 @@ export default class WebMain extends Component {
                     </div>
                     <Button
                         variant="outline-info"
-                        onClick={() => this.nextPath('/webServer')}
+                        onClick={() => this.nextPath('/web/webServer')}
                         style={{margin: 'auto'}}>
                         GO TEST
                     </Button>

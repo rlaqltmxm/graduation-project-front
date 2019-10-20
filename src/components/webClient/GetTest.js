@@ -102,7 +102,7 @@ class Result extends Component {
     }
 
     nextPath(path) {
-        window.location = path
+        this.props.history.push(path);
     }
 
     colorize(target) {
@@ -142,8 +142,8 @@ class Result extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
-                                this.nextPath('/webClient')
+                                sessionStorage.clear()
+                                window.location = '/web/webClient';
                             }
                         }>RETRY
                     </Button>
@@ -153,8 +153,8 @@ class Result extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
-                                this.nextPath('/')
+                                sessionStorage.clear()
+                                window.location = '/';
                             }
                         }>MAIN PAGE
                     </Button>

@@ -7,9 +7,9 @@ export default class UnitResult extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: localStorage.getItem("methodScore"),
-            score2: localStorage.getItem('postScore'),
-            score3: localStorage.getItem('putScore'),
+            score1: sessionStorage.getItem("methodScore"),
+            score2: sessionStorage.getItem('postScore'),
+            score3: sessionStorage.getItem('putScore'),
             str1: "\"Success\"",
             str2: "\"Failed\""
         }
@@ -26,10 +26,10 @@ export default class UnitResult extends Component {
     sendResult = () => {
 
         var temp = {
-            sname: localStorage.getItem('sname'),
-            sno: localStorage.getItem('sno'),
-            sip: localStorage.getItem('sip'),
-            sport: localStorage.getItem('sport'),
+            sname: sessionStorage.getItem('sname'),
+            sno: sessionStorage.getItem('sno'),
+            sip: sessionStorage.getItem('sip'),
+            sport: sessionStorage.getItem('sport'),
         }
 
         axios.post(localStorage.getItem('serverURL')+'/unit_result', temp)
@@ -102,8 +102,8 @@ export default class UnitResult extends Component {
                         size="small"
                         onClick={
                             () => {
-                                localStorage.clear()
-                                this.nextPath('/connect')
+                                sessionStorage.clear()
+                                this.nextPath('/coap/unitTest')
                             }
                         }>RETRY
                     </Button></div>
@@ -114,7 +114,7 @@ export default class UnitResult extends Component {
                         size="small"
                         onClick={
                             () => {                                 
-                                localStorage.clear()
+                                sessionStorage.clear()
                                 this.nextPath('/')
                             }
                         }>MAIN PAGE

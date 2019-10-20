@@ -42,7 +42,7 @@ export default class Main extends Component{
                     <Button
                         style={{marginLeft: 'auto', marginRight: 'auto'}} 
                         variant="outline-info" 
-                        onClick={() => this.nextPath('/webMain')}>
+                        onClick={() => this.nextPath('/web')}>
                         GO TEST</Button>
                 </Card>
                 <div style={{width: 50}}></div>
@@ -57,7 +57,7 @@ export default class Main extends Component{
                     </CardContent>
                     <Button variant="outline-info"
                     style={{marginLeft: 'auto', marginRight: 'auto'}}
-                    onClick={() => this.nextPath('/coapMain')}>
+                    onClick={() => this.nextPath('/coap')}>
                     GO TEST
                     </Button>
                 </Card>

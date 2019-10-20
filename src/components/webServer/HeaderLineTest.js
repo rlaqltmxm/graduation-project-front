@@ -61,7 +61,7 @@ export default class HeaderLineTest extends Component {
     }
 
     nextPath(path) {
-        this.props.history.push(path)
+        window.location = path;
     }
 
     render() {
@@ -119,7 +119,7 @@ export default class HeaderLineTest extends Component {
                             onClick={
                                 () => {
                                     sessionStorage.clear()
-                                    this.nextPath('/webServer')
+                                    this.nextPath('/web/webServer')
                                 }
                             }>RETRY
                         </Button></div>

@@ -28,7 +28,7 @@ export default class WebClient extends Component {
 
     goSenario() {
         sessionStorage.setItem('accessInfo', JSON.stringify(this.state))
-        this.nextPath('/webClient/get')
+        this.nextPath('/web/webClient/get')
     }
 
     render(){
@@ -101,10 +101,10 @@ export default class WebClient extends Component {
                         }
                         >Go Scenario Test</Button>
                     <DropdownButton disabled={isValidInput} variant="outline-info" title="Go Unit Test">
-                        <Dropdown.Item href="/webClient/getUnitTest">GET method Test</Dropdown.Item>
-                        <Dropdown.Item href="/webClient/postUnitTest">POST method Test</Dropdown.Item>
-                        <Dropdown.Item href="/webClient/pustUnitTest">PUT method Test</Dropdown.Item>
-                        <Dropdown.Item href="/webClient/deleteUnitTest">DELETE method Test</Dropdown.Item>
+                        <Dropdown.Item href="/web/webClient/getUnitTest">GET method Test</Dropdown.Item>
+                        <Dropdown.Item href="/web/webClient/postUnitTest">POST method Test</Dropdown.Item>
+                        <Dropdown.Item href="/web/webClient/putUnitTest">PUT method Test</Dropdown.Item>
+                        <Dropdown.Item href="/web/webClient/deleteUnitTest">DELETE method Test</Dropdown.Item>
                     </DropdownButton>   
                 </div>
             </div>
