@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "74ea40e7e6546d951989858bb0e8d982",
+    "revision": "f17f7f0f307a62576840e94f78643faa",
     "url": "/graduation-project-front/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/graduation-project-front/static/css/2.266e55a5.chunk.css"
   },
   {
-    "revision": "2d338ac0a2662e0f46cf",
+    "revision": "1ed673c9d6b0083a89a9",
     "url": "/graduation-project-front/static/css/main.b1f82f48.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/graduation-project-front/static/js/2.cb993752.chunk.js"
   },
   {
-    "revision": "2d338ac0a2662e0f46cf",
-    "url": "/graduation-project-front/static/js/main.f33be138.chunk.js"
+    "revision": "1ed673c9d6b0083a89a9",
+    "url": "/graduation-project-front/static/js/main.7ee36321.chunk.js"
   },
   {
     "revision": "12b3927f7b2deda6828c",

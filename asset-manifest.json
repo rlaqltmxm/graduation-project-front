@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/graduation-project-front/static/css/main.b1f82f48.chunk.css",
-    "main.js": "/graduation-project-front/static/js/main.f33be138.chunk.js",
-    "main.js.map": "/graduation-project-front/static/js/main.f33be138.chunk.js.map",
+    "main.js": "/graduation-project-front/static/js/main.7ee36321.chunk.js",
+    "main.js.map": "/graduation-project-front/static/js/main.7ee36321.chunk.js.map",
     "runtime~main.js": "/graduation-project-front/static/js/runtime~main.f1f03341.js",
     "runtime~main.js.map": "/graduation-project-front/static/js/runtime~main.f1f03341.js.map",
     "static/css/2.266e55a5.chunk.css": "/graduation-project-front/static/css/2.266e55a5.chunk.css",
     "static/js/2.cb993752.chunk.js": "/graduation-project-front/static/js/2.cb993752.chunk.js",
     "static/js/2.cb993752.chunk.js.map": "/graduation-project-front/static/js/2.cb993752.chunk.js.map",
     "index.html": "/graduation-project-front/index.html",
-    "precache-manifest.a1a7fec175b6ff82ed8e0ed32f2c8b05.js": "/graduation-project-front/precache-manifest.a1a7fec175b6ff82ed8e0ed32f2c8b05.js",
+    "precache-manifest.032f5764e669c2fa7f418fd8e6931d1e.js": "/graduation-project-front/precache-manifest.032f5764e669c2fa7f418fd8e6931d1e.js",
     "service-worker.js": "/graduation-project-front/service-worker.js",
     "static/css/2.266e55a5.chunk.css.map": "/graduation-project-front/static/css/2.266e55a5.chunk.css.map",
     "static/css/main.b1f82f48.chunk.css.map": "/graduation-project-front/static/css/main.b1f82f48.chunk.css.map"
