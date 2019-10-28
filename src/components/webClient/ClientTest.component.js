@@ -12,6 +12,7 @@ export default class ClientTest extends Component {
             active: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.getQuiz = this.getQuiz.bind(this);
     }
 
@@ -28,6 +29,11 @@ export default class ClientTest extends Component {
           [event.target.name]: event.target.value,
         });
     };
+
+    handleSubmit(param) {
+        sessionStorage.setItem('getSubmit', param);
+        this.props.history.push('/web/webClient/get/post');
+    }
 
     getQuiz() {
         this.setState({ active: !this.state.active })
@@ -50,7 +56,7 @@ export default class ClientTest extends Component {
                     size="small"
                     onClick={this.getQuiz}>GO TEST
                 </Button>
-                {this.state.active && <Quiz1></Quiz1>}
+                {this.state.active && <Quiz1 onSubmit={this.handleSubmit}></Quiz1>}
             </div>
 
         )
@@ -79,8 +85,7 @@ class Quiz1 extends Component {
     }
 
     handleSubmit() {
-        sessionStorage.setItem('getSubmit', this.state.try);
-        this.nextPath('/web/webClient/get/post');
+        this.props.onSubmit(this.state.try);
     }
 
     render(){

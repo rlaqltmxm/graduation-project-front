@@ -66,10 +66,6 @@ export default class WebServerResult extends Component {
 
     }
 
-    nextPath(path) {
-        window.location = path;
-    }
-
     render() {
 
         const data = this.state.data;
@@ -149,7 +145,7 @@ export default class WebServerResult extends Component {
                                     onClick={
                                         () => {
                                             sessionStorage.clear()
-                                            this.nextPath('/web/webServer')
+                                            this.props.history.go(-3);
                                         }
                                     }>RETRY
                                 </Button>
@@ -162,7 +158,7 @@ export default class WebServerResult extends Component {
                                     onClick={
                                         () => {
                                             sessionStorage.clear()
-                                            this.nextPath('/')
+                                            this.props.history.go(-4);
                                         }
                                     }>MAIN PAGE
                                 </Button>

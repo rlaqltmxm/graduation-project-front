@@ -92,7 +92,7 @@ export default class Result extends Component {
                             onClick={
                                 () => {
                                     sessionStorage.clear()
-                                    window.location = '/web/webClient';
+                                    this.props.history.go(-3);
                                 }
                             }>RETRY
                         </Button></div>
@@ -104,7 +104,7 @@ export default class Result extends Component {
                             onClick={
                                 () => {
                                     sessionStorage.clear()
-                                    window.location = '/';
+                                    this.props.history.go(-4);
                                 }
                             }>MAIN PAGE
                         </Button></div>
