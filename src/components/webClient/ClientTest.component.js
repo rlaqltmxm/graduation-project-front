@@ -66,7 +66,6 @@ class Quiz1 extends Component {
             try: "",
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -75,9 +74,13 @@ class Quiz1 extends Component {
         });
     };
 
+    nextPath(path) {
+        window.location = path;
+    }
+
     handleSubmit() {
         sessionStorage.setItem('getSubmit', this.state.try);
-        window.location = '/web/webClient/get/post';
+        this.nextPath('/web/webClient/get/post');
     }
 
     render(){
@@ -98,7 +101,7 @@ class Quiz1 extends Component {
                         variant="outline-success"
                         color="success"
                         size="small"
-                        onClick={this.handleSubmit}>Submit</Button>
+                        onClick={this.handleSubmit.bind(this)}>Submit</Button>
                 </Form>
             </div>
         )

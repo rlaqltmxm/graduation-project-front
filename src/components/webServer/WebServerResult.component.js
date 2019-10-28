@@ -63,6 +63,7 @@ export default class WebServerResult extends Component {
                 console.log(err);
             }
         )
+
     }
 
     nextPath(path) {

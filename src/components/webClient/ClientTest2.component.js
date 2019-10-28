@@ -20,7 +20,7 @@ export default class ClientTest2 extends Component {
     componentDidMount() {
         axios.post(localStorage.getItem('serverURL') + '/scenario_post', JSON.parse(sessionStorage.getItem('accessInfo')))
         .then((res) => {
-            this.setState({ testingURL: res.url });
+            this.setState({ testingURL: res.data.url });
         }).catch((err) => {
             console.log(err);
         })
@@ -61,7 +61,6 @@ class Quiz2 extends Component {
             try: "",
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -73,22 +72,8 @@ class Quiz2 extends Component {
     handleSubmit() {
 
         sessionStorage.setItem('postSubmit', this.state.try);
-
-        axios.post(localStorage.getItem('serverURL')+'/http_result', JSON.parse(sessionStorage.getItem('accessInfo')))
-        .then((response) => {
-            console.log(response);
-            sessionStorage.setItem('httpCheck', response.data.httpCheck);
-            sessionStorage.setItem('httpVersion', response.data.httpVersion);
-            sessionStorage.setItem('headerUserAgent', response.data.headerUserAgent);
-            sessionStorage.setItem('getAnswer', response.data.getAnswer);
-            sessionStorage.setItem('postAnswer', response.data.postAnswer);
-        })
-        .catch((response) => {
-            console.log(response);
-        })
-        .finally (() => {
-            window.location = '/web/webClient/get/post/result';   
-        })
+        window.location = '/web/webClient/get/post/result';   
+        
     }
     render(){
         return(
@@ -107,7 +92,7 @@ class Quiz2 extends Component {
                         variant="outline-success"
                         color="success"
                         size="small"
-                        onClick={this.handleSubmit}>Submit</Button>
+                        onClick={() => this.handleSubmit()}>Submit</Button>
                 </Form>
             </div>
         )

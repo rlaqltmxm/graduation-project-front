@@ -7,16 +7,25 @@ export default class Result extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: sessionStorage.getItem("getSubmit") === sessionStorage.getItem('getAnswer') ? "\"Correct\"" : "\"Wrong\"",
-            score2: sessionStorage.getItem("postSubmit") == sessionStorage.getItem('postAnswer') ? "\"Correct\"" : "\"Wrong\"",
-            score3: true,
-            score4: true,
-            score5: true
+            getAnswer: 'Scoring...',
+            postAnswer: 'Scoring...',
+            httpCheck: 'Scoring...',
+            httpVersion: 'Scoring...',
+            headerUserAgent: 'Scoring...',
         }
     }
 
-    nextPath(path) {
-        this.props.history.push(path);
+    componentDidMount() {
+         axios.post(localStorage.getItem('serverURL')+'/http_result', JSON.parse(sessionStorage.getItem('accessInfo')))
+        .then((response) => {
+            let { getAnswer, postAnswer, httpCheck, httpVersion, headerUserAgent } = response.data;
+            getAnswer = sessionStorage.getItem('getSubmit') === getAnswer;
+            postAnswer = sessionStorage.getItem('postSubmit') === postAnswer;
+            this.setState({ getAnswer, postAnswer, httpCheck, httpVersion, headerUserAgent });
+        })
+        .catch((response) => {
+            console.log(response);
+        })
     }
 
     messages(target) {
@@ -35,14 +44,9 @@ export default class Result extends Component {
     }
 
     colorize(target) {
-        if(target ==="\"Correct\"") return "blue"
-        else if(target === "\"Wrong\"") return "red"
+        if(target === true) return "blue"
+        else if(target === false) return "red"
         else return "black"
-    }
-
-    colorizeBool(target) {
-        if(target) return "blue"
-        else return "red"
     }
 
     render(){
@@ -54,20 +58,20 @@ export default class Result extends Component {
                                 textAlign: "left",
                                 width: 400,
                                 margin: 'auto',}}>
-                    <h4 style={{ color: this.colorize(this.state.score1)}}>
-                        Q1 -GET Answer:     {this.state.score1} <br/>
+                    <h4 style={{ color: this.colorize(this.state.getAnswer)}}>
+                        Q1 -GET Answer:     {this.state.getAnswer.toString()} <br/>
                     </h4>
-                    <h4 style={{ color: this.colorize(this.state.score2) }}>
-                        Q2 -POST Answer:     {this.state.score2} <br/>
+                    <h4 style={{ color: this.colorize(this.state.postAnswer) }}>
+                        Q2 -POST Answer:     {this.state.postAnswer.toString()} <br/>
                     </h4>
-                    <h4 style={{ color: this.colorizeBool(this.state.score3) }}>
-                        Q3 -HTTP Check:     {this.state.score3.toString()} <br/>
+                    <h4 style={{ color: this.colorize(this.state.httpCheck) }}>
+                        Q3 -HTTP Check:     {this.state.httpCheck.toString()} <br/>
                     </h4>
-                    <h4 style={{ color: this.colorizeBool(this.state.score4) }}>
-                        Q4 -HTTP Version:     {this.state.score4.toString()} <br/>
+                    <h4 style={{ color: this.colorize(this.state.httpVersion) }}>
+                        Q4 -HTTP Version:     {this.state.httpVersion.toString()} <br/>
                     </h4>
-                    <h4 style={{ color: this.colorizeBool(this.state.score5) }}>
-                        Q5 -Header User Agent:     {this.state.score5.toString()} <br/>
+                    <h4 style={{ color: this.colorize(this.state.headerUserAgent) }}>
+                        Q5 -Header User Agent:     {this.state.headerUserAgent.toString()} <br/>
                     </h4>
                 </div>
                 <div style={{marginTop: 50, display: 'flex', justifyContent:'center'}}>
