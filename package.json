@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "http://rlaqltmxm.github.io/graduation-project-front",
+  "homepage": "http://www.test-your-program.com",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
