@@ -19,8 +19,10 @@ export default class Result extends Component {
          axios.post(localStorage.getItem('serverURL')+'/http_result', JSON.parse(sessionStorage.getItem('accessInfo')))
         .then((response) => {
             let { getAnswer, postAnswer, httpCheck, httpVersion, headerUserAgent } = response.data;
-            getAnswer = sessionStorage.getItem('getSubmit') === getAnswer;
-            postAnswer = sessionStorage.getItem('postSubmit') === postAnswer;
+            getAnswer = getAnswer != null && getAnswer.length > 0 ? 
+                sessionStorage.getItem('getSubmit') === getAnswer : false;
+            postAnswer = postAnswer != null && postAnswer.length > 0 ? 
+                sessionStorage.getItem('postSubmit') === postAnswer : false;
             this.setState({ getAnswer, postAnswer, httpCheck, httpVersion, headerUserAgent });
         })
         .catch((response) => {
@@ -28,19 +30,30 @@ export default class Result extends Component {
         })
     }
 
+    componentWillUnmount() {
+        sessionStorage.clear();
+    }
+
     messages(target) {
         return target == 0
     }
 
     sendResult() {
-        var temp = JSON.parse(sessionStorage.getItem("userInfo"));
-
-        // need score1, score2
-
+        var temp = JSON.parse(sessionStorage.getItem("accessInfo"));
+        temp = {
+            ...temp,
+            getScore: this.state.getAnswer,
+            postScore: this.state.postAnswer,
+        };
         axios.post(localStorage.getItem('serverURL')+'/http_submit', temp)
-        .then(
-            res => { console.log(res)}
-        ).catch( response => { console.log(response) } );
+        .then(res => { 
+            if (res.status == 200) {
+                alert(`Your score applied to DB. (student ID: ${temp.sno})`);
+            } else {
+                alert(`DB access failed for some network connection error.`);
+            }
+        })
+        .catch( response => { console.log(response) } );
     }
 
     colorize(target) {
@@ -81,7 +94,7 @@ export default class Result extends Component {
                             variant="outline-success"
                             color="success"
                             size="small"
-                            onClick={this.sendResult}
+                            onClick={this.sendResult.bind(this)}
                             >SUBMIT
                         </Button></div>
                         <div style={{padding: 10}}>

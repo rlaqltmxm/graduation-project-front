@@ -41,8 +41,7 @@ export default class ClientTest2 extends Component {
                     <h5 style={{fontStyle: "italic"}}>
                     *HTTP Version should be "1.1" <br/>
                     *User-Agent header should be "ComputerNetwork" <br/>
-                    *The Message should include your student ID like below <br/>
-                    {JSON.stringify({ "studentID" : 20150044466 })}
+                    *The Message body should include your student ID<br/>
                     </h5>
                 </h4>
                 <div style={{marginTop: 20}}>

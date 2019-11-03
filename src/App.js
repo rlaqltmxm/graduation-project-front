@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
-	localStorage.setItem('serverURL', 'http://testingweb.ap-northeast-2.elasticbeanstalk.com')
+	localStorage.setItem('serverURL', 'http://172.30.1.15:5000')
     this.state = {
     	answer : ""
     }

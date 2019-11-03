@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
-import axios from 'axios';
 
 export default class WebClient extends Component {
 
@@ -27,8 +26,9 @@ export default class WebClient extends Component {
     };
 
     goSenario() {
-        sessionStorage.setItem('accessInfo', JSON.stringify(this.state))
-        this.nextPath('/web/webClient/get')
+        sessionStorage.setItem('accessInfo', JSON.stringify(this.state));
+        console.log(JSON.parse(sessionStorage.getItem('accessInfo')));
+        this.nextPath('/web/webClient/get');
     }
 
     render(){
