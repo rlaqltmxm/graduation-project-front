@@ -9,12 +9,21 @@ export default class ObserverTest extends Component {
         super(props);
         this.state = {
             active: false,
-            url: sessionStorage.getItem("obsURL")
+            url: null,
         }
     }
 
     nextPath = (path) => {
-        window.location = path
+        this.props.history.push(path);
+    }
+
+    componentDidMount() {
+        axios.get(localStorage.getItem('serverURL')+'/obs')
+        .then(res => {
+            this.setState({
+                url: res.data.url,
+            })
+        }).catch(err => console.log(err));
     }
 
     handleChange = (event) => {
@@ -42,7 +51,7 @@ export default class ObserverTest extends Component {
                         this.getQuiz
                     }>GO TEST
                 </Button>
-                {this.state.active && <Quiz2></Quiz2>}
+                {this.state.active && <Quiz2 nextPath={this.nextPath}></Quiz2>}
             </div>
 
         )
@@ -68,27 +77,8 @@ class Quiz2 extends Component {
     };
 
     handleSubmit = () => {
-
         sessionStorage.setItem("submit2", this.state.try)
-        axios.get(localStorage.getItem('serverURL')+'/result')
-        .then( 
-            res => { 
-                console.log(res.data)
-
-                var answer1 = res.data.message
-                var answer2 = res.data.max
-
-                if (answer1 == sessionStorage.getItem("submit1")) sessionStorage.setItem("score1", 50)
-                else sessionStorage.setItem("score1", 0)
-
-                if (answer2 == sessionStorage.getItem("submit2")) sessionStorage.setItem("score2", 50)
-                else sessionStorage.setItem("score2", 0)
-                this.nextPath('/coapClient/result')
-            } 
-            
-        )
-        .catch( response => { console.log(response) } );
-
+        this.props.nextPath('/coap/coapClient/connect/observer/result');
     }
 
     nextPath = (path) => {
@@ -109,13 +99,13 @@ class Quiz2 extends Component {
                                 name="try" 
                                 id="exampleEmail" 
                                 placeholder="your answer"
-                                onChange={this.handleChange}></Form.Control></div>
+                                onChange={this.handleChange.bind(this)}></Form.Control></div>
                     </Form.Group>
                     <Button
                             variant="outline-success"
                             color="success"
                             size="small"
-                            onClick={this.handleSubmit}>Submit</Button>
+                            onClick={this.handleSubmit.bind(this)}>Submit</Button>
                 </Form>
         </div>
         )

@@ -15,20 +15,15 @@ export default class WebClient extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    nextPath(path) {
-        this.props.history.push(path)
-    }
-
     handleChange(event) {
         this.setState({
           [event.target.name]: event.target.value,
         });
     };
 
-    goSenario() {
+    nextPath(path) {
         sessionStorage.setItem('accessInfo', JSON.stringify(this.state));
-        console.log(JSON.parse(sessionStorage.getItem('accessInfo')));
-        this.nextPath('/web/webClient/get');
+        this.props.history.push(path);
     }
 
     render(){
@@ -97,14 +92,14 @@ export default class WebClient extends Component {
                         color="success"
                         size="small"
                         onClick={
-                            this.goSenario.bind(this)
+                            this.nextPath.bind(this, '/web/webClient/get')
                         }
                         >Go Scenario Test</Button>
                     <DropdownButton disabled={isValidInput} variant="outline-info" title="Go Unit Test">
-                        <Dropdown.Item href="/web/webClient/getUnitTest">GET method Test</Dropdown.Item>
-                        <Dropdown.Item href="/web/webClient/postUnitTest">POST method Test</Dropdown.Item>
-                        <Dropdown.Item href="/web/webClient/putUnitTest">PUT method Test</Dropdown.Item>
-                        <Dropdown.Item href="/web/webClient/deleteUnitTest">DELETE method Test</Dropdown.Item>
+                        <Dropdown.Item onClick={this.nextPath.bind(this, '/web/webClient/getUnitTest')}>GET method Test</Dropdown.Item>
+                        <Dropdown.Item onClick={this.nextPath.bind(this, '/web/webClient/postUnitTest')}>POST method Test</Dropdown.Item>
+                        <Dropdown.Item onClick={this.nextPath.bind(this, '/web/webClient/putUnitTest')}>PUT method Test</Dropdown.Item>
+                        <Dropdown.Item onClick={this.nextPath.bind(this, '/web/webClient/deleteUnitTest')}>DELETE method Test</Dropdown.Item>
                     </DropdownButton>   
                 </div>
             </div>

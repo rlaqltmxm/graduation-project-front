@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
-	localStorage.setItem('serverURL', 'http://172.30.1.15:5000')
+	localStorage.setItem('serverURL', 'http://ec2-13-124-138-84.ap-northeast-2.compute.amazonaws.com:5000');
     this.state = {
     	answer : ""
     }

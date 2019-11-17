@@ -62,8 +62,7 @@ export default class WebServerResult extends Component {
         }).catch(err => { 
                 console.log(err);
             }
-        )
-
+        );
     }
 
     render() {

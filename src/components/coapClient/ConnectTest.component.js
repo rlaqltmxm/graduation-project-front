@@ -23,6 +23,10 @@ export default class ConnectTest extends Component {
         this.setState({ active: !this.state.active })
     }
 
+    nextPath = (path) => {
+        this.props.history.push(path);
+    }
+
     render(){
         return(
             
@@ -40,7 +44,7 @@ export default class ConnectTest extends Component {
                         this.getQuiz
                     }>GO TEST
                 </Button>
-                {this.state.active && <Quiz1></Quiz1>}
+                {this.state.active && <Quiz1 nextPath={this.nextPath}></Quiz1>}
             </div>
 
         )
@@ -64,21 +68,8 @@ class Quiz1 extends Component {
     };
 
     handleSubmit = () => {
-
         sessionStorage.setItem("submit1", this.state.try)
-        axios.get(localStorage.getItem('serverURL')+'/obs')
-        .then( 
-            response => { 
-                sessionStorage.setItem("obsURL", response.data.url)
-                this.nextPath('/coap/coapClient/connect/observer')
-            } 
-            
-        )
-        .catch( response => { console.log(response) } );
-    }
-
-    nextPath = (path) => {
-        window.location = path
+        this.props.nextPath('/coap/coapClient/connect/observer');
     }
 
     render(){

@@ -8,9 +8,18 @@ export default class UnitPhase extends Component {
     constructor(props){
         super(props);
         this.state = {
-            url: sessionStorage.getItem('unitURL'),
+            url: null,
             active: false
         }
+    }
+
+    componentDidMount() {
+        axios.get(localStorage.getItem('serverURL') + '/unit_test')
+        .then(res => {
+            this.setState({
+                url: res.data.url,
+            })
+        })
     }
 
     nextPath = (path) => {
@@ -23,18 +32,6 @@ export default class UnitPhase extends Component {
         });
     };
 
-    onSubmit = () => {
-        axios.get(localStorage.getItem('serverURL')+'/unit_score')
-        .then( 
-            response => { 
-                sessionStorage.setItem("methodScore", response.data.MethodScore) //60
-                sessionStorage.setItem("postScore", response.data.PostScore) //20
-                sessionStorage.setItem("putScore", response.data.PutScore) //20
-                this.nextPath('/coap/unitTest/unitResult')
-            }   
-        )
-        .catch( response => { console.log(response) } );
-    }
 
     render(){
         return(
@@ -50,7 +47,7 @@ export default class UnitPhase extends Component {
                     color="success"
                     size="small"
                     onClick={
-                        () => this.onSubmit()
+                        () => this.nextPath('/coap/unitTest/unitPhase/unitResult')
                     }>FINISH
                 </Button>
             </div>

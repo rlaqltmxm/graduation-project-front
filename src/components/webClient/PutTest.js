@@ -17,7 +17,8 @@ const tempData = {
     httpCheck: false,
     requestCheck: false,
     httpVersion: false,
-    headerUserAgent: false
+    headerUserAgent: false,
+    payloadCheck: false,
 }
 
 export default class PutTest extends Component {
@@ -25,7 +26,7 @@ export default class PutTest extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: true,
+            visible: false,
             url: null,
         }
     }
@@ -53,6 +54,9 @@ export default class PutTest extends Component {
         }).catch(err => console.log(err));
     }
 
+    nextPath(step) {
+        this.props.history.go(step);
+    }
 
     render(){
         return(
@@ -68,8 +72,7 @@ export default class PutTest extends Component {
                             style={{flex: 1, fontStyle: "italic"}}>
                             *HTTP Version should be "1.1" <br/>
                             *User-Agent header should be "ComputerNetwork" <br/>
-                            *The Message should include your student ID like below <br/>
-                            {JSON.stringify({ "studentID" : 20150044466 })}
+                            *The Message should include your student ID<br/>
                         </h4>
                         <Button
                             style={{margin: 30}}
@@ -79,7 +82,7 @@ export default class PutTest extends Component {
                             onClick={this.handleResult.bind(this)}>
                                 Result
                         </Button>
-                        {this.state.visible && <Result />}
+                        {this.state.visible && <Result nextPath={this.nextPath.bind(this)}/>}
                     </div>
                 </div>
             </div>
@@ -134,6 +137,10 @@ class Result extends Component {
                         <td>User Agent</td>
                         <td style={this.colorize(data.headerUserAgent)}>{(data.headerUserAgent).toString()}</td>
                     </tr>
+                    <tr>
+                        <td>Payload Data Check</td>
+                        <td style={this.colorize(data.payloadCheck)}>{(data.payloadCheck).toString()}</td>
+                    </tr>
                 </table>
                 <div style={{padding: 30, display: 'flex', justifyContent: 'center'}}>
                     <Button
@@ -144,7 +151,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                this.nextPath('/web/webClient')
+                                this.props.nextPath(-1);
                             }
                         }>RETRY
                     </Button>
@@ -155,7 +162,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                this.nextPath('/')
+                                this.props.nextPath(-3);
                             }
                         }>MAIN PAGE
                     </Button>

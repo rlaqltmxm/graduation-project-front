@@ -31,7 +31,9 @@ export default class GetTest extends Component {
     }
     
     componentDidMount() {
-        axios.post(localStorage.getItem('serverURL')+'/http_unit', JSON.parse(sessionStorage.getItem('accessInfo')))
+        axios.post(localStorage.getItem('serverURL')+'/http_unit', JSON.parse(sessionStorage.getItem('accessInfo')), { 
+            headers: { 'Content-Type': 'application/json' }
+        },)
         .then(res => {
             this.setState({ url: res.data.url });
         }).catch(err => console.log(err));
@@ -54,6 +56,10 @@ export default class GetTest extends Component {
             console.log(err);
 
         });
+    }
+
+    nextPath(step) {
+        this.props.history.go(step);
     }
 
     render(){
@@ -79,7 +85,7 @@ export default class GetTest extends Component {
                             onClick={this.handleResult.bind(this)}>
                                 Result
                         </Button>
-                        {this.state.visible && <Result />}
+                        {this.state.visible && <Result nextPath={this.nextPath.bind(this)}/>}
                     </div>
                 </div>
             </div>
@@ -99,10 +105,6 @@ class Result extends Component {
         this.setState({
             data: JSON.parse(sessionStorage.getItem('webClientUnitGet')) || tempData,
         })
-    }
-
-    nextPath(path) {
-        this.props.history.push(path);
     }
 
     colorize(target) {
@@ -143,7 +145,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                window.location = '/web/webClient';
+                                this.props.nextPath(-1);
                             }
                         }>RETRY
                     </Button>
@@ -154,7 +156,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                window.location = '/';
+                                this.props.nextPath(-3);
                             }
                         }>MAIN PAGE
                     </Button>

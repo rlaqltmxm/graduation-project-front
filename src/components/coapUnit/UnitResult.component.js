@@ -7,16 +7,26 @@ export default class UnitResult extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: sessionStorage.getItem("methodScore"),
-            score2: sessionStorage.getItem('postScore'),
-            score3: sessionStorage.getItem('putScore'),
+            score1: null,
+            score2: null,
+            score3: null,
             str1: "\"Success\"",
             str2: "\"Failed\""
         }
     }
 
-    nextPath = (path) => {
-        window.location = path
+    componentDidMount() {
+        axios.get(localStorage.getItem('serverURL')+'/unit_score')
+        .then( 
+            response => { 
+                this.setState({
+                    score1: response.data.MethodScore,
+                    score2: response.data.PostScore,
+                    score3: response.data.PutScore, 
+                });
+            }   
+        )
+        .catch( response => { console.log(response) } );
     }
 
     messages = (target) => {
@@ -102,8 +112,8 @@ export default class UnitResult extends Component {
                         size="small"
                         onClick={
                             () => {
-                                sessionStorage.clear()
-                                this.nextPath('/coap/unitTest')
+                                sessionStorage.clear();
+                                this.props.history.go(-2);
                             }
                         }>RETRY
                     </Button></div>
@@ -114,8 +124,8 @@ export default class UnitResult extends Component {
                         size="small"
                         onClick={
                             () => {                                 
-                                sessionStorage.clear()
-                                this.nextPath('/')
+                                sessionStorage.clear();
+                                this.props.history.go(-3);
                             }
                         }>MAIN PAGE
                     </Button></div>

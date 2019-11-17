@@ -25,7 +25,7 @@ export default class DeleteTest extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: true,
+            visible: false,
             url: null,
         }
     }
@@ -54,7 +54,7 @@ export default class DeleteTest extends Component {
     }
 
     nextPath(path) {
-        window.location = path
+        this.props.history.go(path);
     }
 
     render(){
@@ -80,7 +80,7 @@ export default class DeleteTest extends Component {
                             onClick={this.handleResult.bind(this)}>
                                 Result
                         </Button>
-                        {this.state.visible && <Result />}
+                        {this.state.visible && <Result nextPath={this.nextPath.bind(this)}/>}
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                this.nextPath('/web/webClient')
+                                this.props.nextPath(-1);
                             }
                         }>RETRY
                     </Button>
@@ -155,7 +155,7 @@ class Result extends Component {
                         onClick={
                             () => {
                                 sessionStorage.clear()
-                                this.nextPath('/')
+                                this.props.nextPath(-3);
                             }
                         }>MAIN PAGE
                     </Button>

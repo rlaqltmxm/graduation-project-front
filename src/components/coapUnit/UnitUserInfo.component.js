@@ -34,17 +34,7 @@ class UserInfo extends Component {
         sessionStorage.setItem('sno', this.state.sno)
         sessionStorage.setItem('sip', this.state.sip)
         sessionStorage.setItem('sport', this.state.sport)
-
-        var url = localStorage.getItem('serverURL') + '/unit_test'        // var headers = { 'Access-Control-Allow-Origin': '*' }
-        axios.get(url)
-        .then( 
-            response => { 
-                sessionStorage.setItem("unitURL", response.data.url)
-                this.nextPath('/coap/unitTest/unitPhase')
-            } 
-            
-        )
-        .catch( response => { console.log(response) } );
+        this.nextPath('/coap/unitTest/unitPhase');
         
     }
 
@@ -115,7 +105,7 @@ class UserInfo extends Component {
                         color="success"
                         size="small"
                         onClick={
-                            this.sendInfo
+                            this.sendInfo.bind(this)
                         }
                         >Submit</Button>
                     </div>

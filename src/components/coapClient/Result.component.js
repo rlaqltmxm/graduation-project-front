@@ -7,8 +7,8 @@ export default class Result extends Component {
     constructor(props){
         super(props);
         this.state = {
-            score1: sessionStorage.getItem("score1"),
-            score2: sessionStorage.getItem('score2'),
+            score1: null,
+            score2: null,
             str1: "\"Connection Success\"",
             str2: "\"Connection Failed\"",
             str3: "\"Observer Success\"",
@@ -16,6 +16,23 @@ export default class Result extends Component {
             color1: "red",
             color2: "red"
         }
+    }
+
+    componentDidMount() {
+        axios.get(localStorage.getItem('serverURL')+'/result')
+        .then( 
+            res => { 
+                var answer1 = res.data.message
+                var answer2 = res.data.max
+                this.setState({ 
+                    score1: answer1 == sessionStorage.getItem("submit1") ? 50 : 0, 
+                    score2: answer2 == sessionStorage.getItem("submit2") ? 50 : 0,
+                });
+            } 
+            
+        )
+        .catch( response => { console.log(response) } );
+
     }
 
     nextPath = (path) => {
